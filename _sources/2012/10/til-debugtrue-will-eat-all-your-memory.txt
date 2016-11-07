@@ -1,0 +1,37 @@
+.. post:: 2012-10-12
+   :tags: Django
+   :author: Josh Crompton
+
+TIL: DEBUG=True will eat all your memory
+########################################
+
+So, there I was synchronising several thousand database records with a
+3rd party server. Off I go to `take care of some serious business while
+I wait <http://xkcd.com/303/>`__ for the sync to complete. But when I
+return instead of seeing a nicely up-to-date database, my machine is
+thrashing so hard it's almost completely unresponsive. Turns out Python
+is eating up 80% of the memory.
+
+So I pile into optimising the code that does the syncing. No luck there.
+(I mean, the code's better but Python still eats all the memory.) So I
+figure I better take a look at exactly what's taking up all that space.
+While looking for some memory profiling tools, I come across this post
+on `debugging memory leaks in
+Django. <http://www.toofishes.net/blog/using-guppy-debug-django-memory-leaks/>`__
+
+.. raw:: html
+
+   <p>
+
+Note especially point #3:
+
+    Remember that if you have DEBUG = True, you will see an
+    ever-increasing heap because of the queries being cached on the
+    connection object.
+
+.. raw:: html
+
+   </p>
+
+Oh. I see. Yep, that fixes it. Python now consumes a mere 0.8% or the
+system memory, and all is well.

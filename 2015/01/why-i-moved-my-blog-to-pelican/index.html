@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Why I moved my blog to Pelican</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="None" href="../../../" />
+  
+ 
+<link rel="stylesheet" href="../../../_static/tufte.css" type="text/css" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../../../blog/atom.xml" title="Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+    <div class="sphinxsidebarwrapper">
+      <h3><a href="../../../">Home</a></h3><ul><li></li></ul>
+  <h3><a href="../../../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/2016/">2016 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2015/">2015 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2014/">2014 (6)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2013/">2013 (1)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2012/">2012 (15)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2011/">2011 (2)</a></li>
+    
+  
+  </ul>
+
+  <h3><a href="../../../blog/category/">Categories</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/category/book-reviews/">Book Reviews (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+  </div>
+
+
+<div class="document">
+  <div class="section" id="why-i-moved-my-blog-to-pelican">
+<h1>Why I moved my blog to Pelican<a class="headerlink" href="#why-i-moved-my-blog-to-pelican" title="Permalink to this headline">¶</a></h1>
+<p>When I first decided to start blogging, I wanted to eliminate any
+excuse I had for not posting. I didn&#8217;t want to waste time shaving
+yaks, setting up hosting and generally spinning my wheels. So I went
+with the easiest option available: blogger.com.</p>
+<p>But as time passed, I found that I wasn&#8217;t posting as much as I&#8217;d
+like. I found myself not writing because I knew it would be a fight to
+get the post formatted and published. I hated that my code snippets
+were hosted on github. I was writing HTML by hand to work around the
+terrible WYSIWYG editor. Posts were really frustrating to edit.</p>
+<p>Instead, I want something that is closer to my regular writing
+workflow (<a class="reference external" href="http://orgmode.org/">org-mode</a> for most of my writing,
+<a class="reference external" href="http://sphinx-doc.org/">Sphinx</a> for code documentation.) I also
+find myself increasingly wanting to <a class="reference external" href="http://indiewebcamp.com/why">own my content in a meaningful
+way</a>. I am old enough to remember the
+early(ish) days of the web, before it was turned into a machine for
+selling and surveilling, and although it&#8217;s probably too late to fix
+that, I can at least not exacerbate the problem. The easiest place to
+start is with this blog.</p>
+<p>Finally, I&#8217;m trying to integrate blogging more into my learning
+style. I need it to be as easy as possible for me to write and publish
+as I go. All this to say that late last year I replaced my old blog
+with this one, which is powered by <a class="reference external" href="http://blog.getpelican.com/">Pelican</a> and hosted on AWS.</p>
+<div class="section" id="why-pelican">
+<h2>Why Pelican?<a class="headerlink" href="#why-pelican" title="Permalink to this headline">¶</a></h2>
+<p>I looked at publishing directly from org-mode and skipping
+ReStructured Text entirely, but I couldn&#8217;t find any good options and
+I&#8217;m more familiar with Python than Elisp. I was still undecided on
+platform (there are a number of Python-based static site generators)
+until I stumbled on <a class="reference external" href="http://jeremiahrogers.com/">http://jeremiahrogers.com/</a> and found it was based
+on Pelican. Although I only planned to publish basic text posts
+initially, seeing what Jeremiah has managed to do gave me all sorts of
+ideas and demonstrated how flexible Pelican could be.</p>
+</div>
+<div class="section" id="publishing-workflow">
+<h2>Publishing workflow<a class="headerlink" href="#publishing-workflow" title="Permalink to this headline">¶</a></h2>
+<p>The old way:</p>
+<ol class="arabic simple">
+<li>Draft post in org-mode.</li>
+<li>Write up code snippets on github.</li>
+<li>Publish org-mode file to html.</li>
+<li>Copy body of html to blogger.com editor.</li>
+<li>Tweak all the things.</li>
+<li>Add embed code for github snippets.</li>
+<li>Hit publish.</li>
+<li>Realise I made a mistake.</li>
+<li>Edit the raw HTML in blogger.</li>
+<li>Decide to re-write portions while I was at it.</li>
+<li>Save changes.</li>
+<li>Realise I broke the HTML strcuture.</li>
+<li>Repeat 7 - 13 <em>ad nauseum</em></li>
+</ol>
+<p>The new way:</p>
+<ol class="arabic simple">
+<li>Get an idea for a post. Open up <code class="docutils literal"><span class="pre">content/drafts.org</span></code> and add it
+as a headline under the <code class="docutils literal"><span class="pre">ideas</span></code> sub-tree. (I skip this step if I
+want to start writing immediately.)</li>
+<li>When ready to start writing, move the headline to the
+<code class="docutils literal"><span class="pre">research/draft</span></code> sub-tree and start writing. Write code snippets
+inline (because org-mode).</li>
+<li>Once a post is ready to be published, create a new file in the
+appropriate directory with the name of the post as the filename and
+the org-mode subtree of the draft as the contents.</li>
+<li>Manually translate the post from org-mode to RST, adding the
+required metadata.</li>
+<li>Run <code class="docutils literal"><span class="pre">make</span> <span class="pre">s3_upload</span></code>.</li>
+</ol>
+<p>If I need to edit a post, I just open it in Emacs, edit the text and
+re-run <code class="docutils literal"><span class="pre">make</span> <span class="pre">s3_upload</span></code>.</p>
+</div>
+<div class="section" id="future-improvements">
+<h2>Future improvements<a class="headerlink" href="#future-improvements" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s far easier now for me to write and publish, but there are some
+areas I could improve. At some point I may write an entirely custom
+solution which will let me publish direct from org-mode and syndicate
+to various other platforms, but in the short- to medium-term, there
+are some other clear wins.</p>
+<div class="section" id="eliminate-manual-org-mode-rst-translation">
+<h3>Eliminate manual org-mode -&gt; RST translation<a class="headerlink" href="#eliminate-manual-org-mode-rst-translation" title="Permalink to this headline">¶</a></h3>
+<p>I&#8217;d like to eliminate the org -&gt; RST step. I would skip the org-mode
+step altogether, but I love me some org-mode. I&#8217;d skip the RST step
+but Pelican requires it. I think pandoc may be able to do translate
+between these formats automatically, although it still offends my
+sensibilities, so I may have to either abandon org-mode or move from
+Pelican to an org-mode based static site generator.</p>
+</div>
+<div class="section" id="generate-metadata-automatically">
+<h3>Generate metadata automatically<a class="headerlink" href="#generate-metadata-automatically" title="Permalink to this headline">¶</a></h3>
+<p>It would be great to eliminate copy/pasting the structure of the
+metadata headers for posts. I&#8217;ll look into doing that with either a
+capture template for org-mode, or a snippet for yasnippet. Either way
+I&#8217;ll be getting better with Emacs which is a nice side effect.</p>
+</div>
+<div class="section" id="formalise-workflow-with-task-states">
+<h3>Formalise workflow with task states<a class="headerlink" href="#formalise-workflow-with-task-states" title="Permalink to this headline">¶</a></h3>
+<p>The task tracking functionality in org-mode is awesome, and it&#8217;s
+possible to define your own task states and transitions. I&#8217;d like to
+try using task states in place of moving drafts between different
+sub-trees in order to track what stage they&#8217;re in.</p>
+</div>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../../../2014/12/programming-books-i-read-in-2014/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Programming books I read in 2014
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../../11/cukeup-trip-report/">
+    CukeUp! AU 2015 Highlights
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+</div>
+
+  </body>
+</html>

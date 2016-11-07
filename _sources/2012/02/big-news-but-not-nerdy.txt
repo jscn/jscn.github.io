@@ -1,0 +1,42 @@
+.. post:: 2012-02-26
+   :author: Josh Crompton
+
+Big news. But not nerdy.
+########################
+
+It's been quiet here lately. That's because I've been very busy. With
+what, you ask? Is dealing with incessant earthquakes not enough? No?
+Well, I've also been busy with moving from my hometown of Christchurch,
+New Zealand to Perth, Australia. I quit my job at the end of January and
+arrived in Perth on the 15th. I've wanted to leave Christchurch for a
+while, and the earthquakes provided an impetus to actually do something
+about it.
+
+For the last few years, I've been focused on finding problems with
+software systems. I spent 40 hours a week looking at things other people
+had created and finding fault with their work. I was good at it. I found
+a lot of bugs. But it's easy to find fault. I mean, it can be difficult
+to find a particular fault. But it's easy to fall into a frame of mind
+where *all you do* is find problems with other people's work. There's
+very little risk in that. But it's also unsatisfying after while.
+
+So, I've been trying to transition into getting paid for creating
+stuff, instead. It's been a bumpy ride so far. I started freelancing for
+some\ `great guys <http://sons.co.nz/>`__ who were (and still are)
+creating some `awesome
+work <http://bestawards.co.nz/studio/sons-and-co/>`__. But just as I was
+starting to find my stride, my city `fell
+down <http://en.wikipedia.org/wiki/2011_Christchurch_earthquake>`__
+around me. Christchurch's infrastructure was crushed, the business
+district was destroyed and my burgeoning freelance programming business
+dried up.
+
+When the ground shifts and things become unstable, you go back to what
+you know. So I returned to an old employer and started finding bugs
+again. After a few months I switched roles and started fixing the bugs.
+But once you've had the pleasure of creating whole new projects, it's
+difficult to go back. So now, I'm focusing on learning and creating new
+stuff. I'm going to be writing more code, contributing to open source
+and generally spending my time building things. Of course, I also need
+to get paid, so if you're in Perth and you're looking for a keen
+contributor, give me a `shout <mailto:josh.crompton@gmail.com>`__.

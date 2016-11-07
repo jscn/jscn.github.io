@@ -1,0 +1,21 @@
+.. post:: 2012-09-03
+   :tags: Django, Python
+   :author: Josh Crompton
+
+How to turn off CSRF protection for class based views
+#####################################################
+
+It's gotta go on the ``.dispatch()`` method, not on ``.post()`` (or
+``.get()``).
+
+.. code-block:: python
+
+    class AwesomeView(DetailView):
+
+        @method_decorator(csrf_exempt)
+        def dispatch(self, *args, **kwargs):
+	    return super(AwesomeView, self).dispatch(*args, **kwargs)
+
+        def post(self, request, *args, **kwargs):
+            print request.POST
+            return HttpResponse('Aw yeah!')

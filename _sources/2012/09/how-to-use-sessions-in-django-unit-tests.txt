@@ -1,0 +1,32 @@
+.. post:: 2012-09-05
+   :tags: Django, TDD, unit testing
+   :author: Josh Crompton
+
+How to use sessions in Django unit tests
+########################################
+
+If you've tried using sessions with the Django test client as the
+`official documentation
+describes <https://docs.djangoproject.com/en/dev/topics/testing/#django.test.client.Client.session>`__,
+you'll have noticed that **it doesn't work.**
+
+There are a couple bugs in the Django ticket system around this, the
+main one being https://code.djangoproject.com/ticket/10899, but there's
+been no movement on it for 8 months. However, that ticket has the code
+you need to get your sessions working.
+
+So if you want to use sessions in your tests (e.g., to test whether a
+view is adding the right stuff to the session), add the following to the
+setUp() method of your test case:
+
+.. code-block:: python
+
+    def setUp(self):
+        from django.conf import settings
+	engine = import_module(settings.SESSION_ENGINE)
+	store = engine.SessionStore()
+	store.save()  # we need to make load() work, or the cookie is worthless
+	self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
+
+Now when you access ``self.client.session`` in your tests, it'll
+actually remember any changes made to it during the course of the test.

@@ -1,0 +1,33 @@
+.. post:: 2016-03-23
+   :tags: Python, unit testing, quick tip
+   :author: Josh Crompton
+
+How to mock a method so it returns the argument you pass it
+###########################################################
+
+While I was refactoring and adding tests for a pretty hairy method, I found
+that I wanted to mock out some methods on the object so that they just returned
+whatever value was passed into them. It turns out that's pretty easy to do,
+although it took me a little while to figure it out. To save you (and future
+me) the time, here's how.
+
+Given an instance `request` with a method `complex_method` which takes a single
+argument, replace `complex_method` with a mock which returns the argument
+unchanged:
+
+.. code-block:: python
+
+    from mock import Mock
+    request.complex_method = Mock(side_effect=lambda arg: arg)
+
+Subsequent calls to `complex_method` will return unchanged whatever you pass
+it:
+
+.. code-block:: python
+
+    >>> request.complex_method(True)
+    True
+    >>> request.complex_method(False)
+    False
+    >>> request.complex_method('amazing!')
+    'amazing!'

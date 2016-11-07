@@ -1,0 +1,154 @@
+.. post:: 2014-12-07
+   :tags: Django, Python
+   :author: Josh Crompton
+
+Django's models are just fine without descriptors
+#################################################
+:date:  18:59
+:author: jscn
+:slug: djangos-models-are-just-fine-without-descriptors
+
+
+In his post `"Django Model
+Descriptors" <http://blog.kevinastone.com/django-model-descriptors.html>`__,
+the author, Kevin Stone, asserts that using descriptors is a good way to
+extend the functionality of Django models and fields to include business
+logic. While descriptors do make this possible, I do not agree that
+doing so is a good idea. I also contend that there are simpler ways to
+achieve the same results, should one wish to do so.
+
+Models should not include business logic
+----------------------------------------
+
+A model's duty (you might say, it's single responsibility) is to
+validate data and handle storing and retrieving that data. If you start
+adding other responsibilities to a model object, that is going to cause
+all the problems associated with violating the `Single Responsibility
+Principle <http://c2.com/cgi/wiki?SingleResponsibilityPrinciple>`__.
+
+This seems to be a common pattern with Django applications. A lot of
+Django models get really fat, filled to the brim with business logic,
+because it's the easy place to put that stuff. But it's not the model's
+responsibility. The model's responsibility is to validate, store and
+retrieve data.
+
+One effect of this anti-pattern is that your unit tests will be slow
+because they *must* interact with the database, even when you are only
+trying to test your application's business logic. It also makes it is
+harder to reason about your program. It means your application is more
+tightly coupled to the Django code, so if you have to change to another
+framework for some reason, it will be much harder to extract the
+relevant code from the irrelevant. In short, it's a violation of SRP,
+and comes with all the risks and problems associated with that.
+
+Computed values
+---------------
+
+Stone correctly shoots down the idea of just adding convenience methods
+to a model as a way of getting computed values. This is another common
+anti-pattern in Django applications. It's easy to do, and it doesn't
+seem to do too much harm. If it gets to be "too much" and the model
+becomes "too complicated", then it can always be refactored, right? Of
+course, this refactoring almost never happens. Especially once code in
+other parts of your application starts relying on the existence of these
+convenience methods (which it will do immediately, since you added the
+convenience method in order for code elsewhere in your application to
+use it).
+
+Stone suggests that a good alternative to convenience methods is to use
+descriptors to extend the functionality of the field. Essentially, he
+wants to move the convenience methods from the model class to the field
+class.
+
+But this is no solution at all. The convenience methods still exist,
+they have just been moved more deeply into the object hierarchy. Now
+your code violates the Law of Demeter as well as the SRP. In Stone's
+example, to get the hostname you must call ``object.url.hostname``. Now
+you have too much knowledge of the internals of your model and its
+fields. Worse, you've the added the responsibility of manipulating data
+to your field class, whose sole responsibility should be to translate
+between database values and Python values.
+
+So Stone's example solves one problem by replacing it with another,
+different problem, while introducing a lot of complexity to the code:
+descriptors, a sub-class of ``URLField`` and added some metaprogramming
+shenanigans.
+
+Put the "Object" back into "Object Oriented"
+--------------------------------------------
+
+In Stone's example, it would be much cleaner to introduce a new object
+with the **single responsibility** of extracting a hostname from a URL
+string [#f1]_.
+This allows us to unit test that functionality without touching the
+database and re-use that object in other projects (which may not involve
+Django at all.)
+
+Alternate representations of data
+---------------------------------
+
+A second possible use for descriptors that Stone presents is as a way of
+offering alternative representations of model data. The example he
+presents of making a timestamp do double duty as a boolean is a pattern
+I also like, and one I've used a lot. However, it is not a good
+candidate for the use of descriptors as he suggests.
+
+It is pretty clear that the responsibility of a Django ``Field`` class
+is to validate and translate data between the database and Python. The
+job of offering alternate representations of that data is clearly out of
+scope. But the suggested solution violates the Single Responsibility
+Principle, introduces unnecessary complexity and makes the code harder
+to understand.
+
+I've already talked about the first problem, so I'll only mention here
+that Stone introduces a descriptor class in addition to a sub-class of
+the the ``DateTimeField``. The same effect could be achieved with a
+single line function on the model, ``is_published()`` which returns
+whether or not the value of the field is ``None`` [#f2]_.  This is
+much less complex and can be understood by a fellow developer in a
+glance.
+
+This would also mean that another developer (or myself at a later date)
+is less likely to mistakenly think that the ``is_published`` property
+is actually a database value that can be used to filter queryset
+results. Again, this is a case of adding complexity for no gain.
+
+Descriptors are the wrong tool for these jobs
+---------------------------------------------
+
+When I first heard about descriptors, I started thinking of all the cool
+ways I could hack Django models with them. I could completely hide the
+data of the model, and provide a much better thought out, more
+intentional API. If the database representation changed, I could just
+update the internals of the API methods and I wouldn't have to change my
+application code.
+
+But this is wrong thinking. A model is a model. Its duty is to expose
+database values. The problem lies in thinking that it should do double
+duty as a repository of business logic and other unrelated behaviour.
+
+I get it, descriptors are a clever language feature and you can do
+some nifty things with them. And Stone's blog post even does a pretty
+good job of explaining what they are [#f3]_ and showing some possible
+uses for them. But please don't implement those suggestions in your
+production code. Using descriptors as Stone suggests will make your
+code harder to reason about and harder to change in the future.
+
+
+Footnotes
+---------
+
+.. [#f1] Two good candidates might be a ``Hostname`` class that takes a URL
+	 string and returns the hostname portion from its ``__str__``\ method, or
+	 a ``URL`` class that takes a URL string and returns the hostname portion
+	 from a ``hostname`` property or method.
+
+.. [#f2] If you really wanted it to be a property, not a method call, then
+	 you could add a @property decorator. But I would leave it as method
+	 unless doing so would break backwards compatibility, for the simple
+	 reason that it is more immediately clear that it is a computed value,
+	 not a database value.
+
+.. [#f3] `Fraser Tweedale's PyCon AU 2014 talk on descriptors
+	 <http://pyvideo.org/video/3123/descriptors-attribute-access-redefined-by-fraser>`__
+	 dives into much more detail.

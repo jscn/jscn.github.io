@@ -1,0 +1,120 @@
+.. post:: 2012-07-18
+   :tags: Django, Python, TDD, unit testing
+   :author: Josh Crompton
+
+Using Django's == and in operators on unsaved Model instances
+#############################################################
+
+tldr; Don't rely on the ``==`` or ``in`` operators before hitting
+``.save()`` on your model instances.
+
+This got me pretty good recently. Say we have a Django model, Animal, to
+which we can assign various species. Here's our ``models.py``:
+
+.. code-block:: python
+
+    from django.db import models
+
+    class Animal(models.Model):
+        species = models.CharField(max_length=100)
+
+Now, say you're writing some unit tests like a good developer, and you
+want to compare two instances of a Model:
+
+.. code-block:: sh
+
+    $ python manage.py shell
+    Python 2.7.3 (default, Apr 20 2012, 22:44:07)
+    [GCC 4.6.3] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    (InteractiveConsole)
+    >>> from project.app.models import Animal
+    >>> cat = Animal(species="feline")
+    >>> dog = Animal(species="canine")
+    >>> cat.species == dog.species
+    False
+    >>> cat is dog
+    False
+    >>> # A cat is not a dog. Duh.
+    >>> # However...
+    >>> cat in [dog]
+    True
+    >>> # Oh no! How did the cat get in the dog? Wait a minute...
+    >>> cat == dog
+    True
+    >>> # What?!
+    >>>
+
+Why does Django think that ``cat`` and ``dog`` are the same, even when
+it knows they're different species? Let's see what Python thinks.
+
+.. code-block:: python
+
+    $ python
+    Python 2.7.3 (default, Apr 20 2012, 22:44:07)
+    [GCC 4.6.3] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> class Animal():
+    ... def __init__(self, species):
+    ... self.species = species
+    ...
+    >>> cat = Animal(species="feline")
+    >>> dog = Animal(species="canine")
+    >>> cat.species == dog.species
+    False
+    >>> cat is dog
+    False
+    >>> cat in [dog]
+    False
+    >>> cat == dog
+    False
+    >>>
+
+So Python gets it right. What's going on here?
+
+If we look at the Django source, we can see that Model overrides the
+``==`` operator like this:
+
+.. code-block:: python
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self._get_pk_val() == other._get_pk_val() 
+
+The Model class is comparing the private keys to determine equality.
+Since our Animal instances haven't been saved yet, they don't have
+private keys. Since ``None == None``, Django thinks that they're the
+same thing. When we save the Model instances, the ORM will generate the
+private keys and the ``==`` and ``in`` operators can be safely used to
+compare them.
+
+.. code-block:: sh
+
+    >>> # Private keys don't exist.
+    >>> cat.pk is None
+    True
+    >>> dog.pk is None
+    True
+    >>> # Saving generates the private key.
+    >>> cat.save()
+    >>> cat.pk
+    2
+    >>> # == and in operators now work as expected.
+    >>> cat == dog
+    False
+    >>> cat in [dog]
+    False
+    >>>
+
+Note that ``is`` gives us the right answer even before the Animal
+instances are saved. That's because ``is`` tests for object identity,
+not equality.
+
+I don't think it makes a lot of sense for Django to consider Model
+instances which haven't yet been saved to be equal. It's particularly
+annoying if you're following `Gary Bernhardt's
+advice <http://pycon-2012-notes.readthedocs.org/en/latest/fast_tests_slow_tests.html>`__
+by trying to avoid calls to the database in your unit tests. That's
+where it tripped me up.
+
+So, to be safe, always save your model instances before you compare them
+for equality.

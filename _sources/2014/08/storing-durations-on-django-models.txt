@@ -1,0 +1,22 @@
+.. post:: 2014-08-10
+   :tags: Django
+   :author: Josh Crompton
+
+Storing durations on Django models
+##################################
+
+I just released a package on PyPI:
+`thecut-durationfield <https://pypi.python.org/pypi/thecut-durationfield>`__
+is a Django app that provides model and form fields for working with
+durations. The durations are stored as `ISO
+8601 <https://en.wikipedia.org/wiki/ISO_8601>`__ compatible strings, and
+the model field returns
+`dateutil.relativedelta <http://labix.org/python-dateutil#head-ba5ffd4df8111d1b83fc194b97ebecf837add454>`__
+objects.
+
+I've been using it for things like subscription models, where I want to
+figure out when a customer needs to be charged.
+
+The code is up on
+`github <https://github.com/thecut/thecut-durationfield>`__, so take a
+look and if you have any problems, get in touch.

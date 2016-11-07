@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Blog</title>
+  <id>http://joshcrompton.com/blog/atom.xml</id>
+  <updated>2016-08-01T00:00:00Z</updated>
+  <link href="http://joshcrompton.com/" />
+  <link href="http://joshcrompton.com/blog/atom.xml" rel="self" />
+  <generator uri="http://ablog.readthedocs.org" version="0.8.3">ABlog</generator>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">How to set up a development environment for Elm with Docker</title>
+    <id>http://joshcrompton.com/2016/07/exploring-elm-setup/</id>
+    <updated>2016-08-01T00:00:00Z</updated>
+    <published>2016-08-01T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2016/07/exploring-elm-setup/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;I&amp;#8217;ve recently started playing around with &lt;a class=&quot;reference external&quot; href=&quot;http://elm-lang.org/&quot;&gt;Elm&lt;/a&gt;, a
+purely functional language which compiles to JavaScript. If you haven&amp;#8217;t heard
+of it already, you should defintely check it out, it&amp;#8217;s neat.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">How to mock a method so it returns the argument you pass it</title>
+    <id>http://joshcrompton.com/2016/03/mock-method-return-argument/</id>
+    <updated>2016-03-23T00:00:00Z</updated>
+    <published>2016-03-23T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2016/03/mock-method-return-argument/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;While I was refactoring and adding tests for a pretty hairy method, I found
+that I wanted to mock out some methods on the object so that they just returned
+whatever value was passed into them. It turns out that&amp;#8217;s pretty easy to do,
+although it took me a little while to figure it out. To save you (and future
+me) the time, here&amp;#8217;s how.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">CukeUp! AU 2015 Highlights</title>
+    <id>http://joshcrompton.com/2015/11/cukeup-trip-report/</id>
+    <updated>2015-11-30T00:00:00Z</updated>
+    <published>2015-11-30T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2015/11/cukeup-trip-report/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Recently I was lucky enough to attend &lt;a class=&quot;reference external&quot; href=&quot;https://cucumber.io/events/cukeup-australia-2015&quot;&gt;CukeUp!&lt;/a&gt; in Sydney. It&amp;#8217;s the first time that the conference has been run in Australia, and I hope it&amp;#8217;s not the last. I really liked the format, with morning and afternoon talks bookending workshops which ran before and after lunch. Technical conferences can sometimes become a strange kind of spectator sport. The workshops really helped me get out of that mode and get engaged.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Why I moved my blog to Pelican</title>
+    <id>http://joshcrompton.com/2015/01/why-i-moved-my-blog-to-pelican/</id>
+    <updated>2015-01-27T00:00:00Z</updated>
+    <published>2015-01-27T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2015/01/why-i-moved-my-blog-to-pelican/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;When I first decided to start blogging, I wanted to eliminate any
+excuse I had for not posting. I didn&amp;#8217;t want to waste time shaving
+yaks, setting up hosting and generally spinning my wheels. So I went
+with the easiest option available: blogger.com.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Programming books I read in 2014</title>
+    <id>http://joshcrompton.com/2014/12/programming-books-i-read-in-2014/</id>
+    <updated>2014-12-14T00:00:00Z</updated>
+    <published>2014-12-14T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2014/12/programming-books-i-read-in-2014/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;by Sandi Metz&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Django's models are just fine without descriptors</title>
+    <id>http://joshcrompton.com/2014/12/djangos-models-are-just-fine-without-descriptors/</id>
+    <updated>2014-12-07T00:00:00Z</updated>
+    <published>2014-12-07T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2014/12/djangos-models-are-just-fine-without-descriptors/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;18:59&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Storing durations on Django models</title>
+    <id>http://joshcrompton.com/2014/08/storing-durations-on-django-models/</id>
+    <updated>2014-08-10T00:00:00Z</updated>
+    <published>2014-08-10T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2014/08/storing-durations-on-django-models/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;I just released a package on PyPI:
+&lt;a class=&quot;reference external&quot; href=&quot;https://pypi.python.org/pypi/thecut-durationfield&quot;&gt;thecut-durationfield&lt;/a&gt;
+is a Django app that provides model and form fields for working with
+durations. The durations are stored as &lt;a class=&quot;reference external&quot; href=&quot;https://en.wikipedia.org/wiki/ISO_8601&quot;&gt;ISO
+8601&lt;/a&gt; compatible strings, and
+the model field returns
+&lt;a class=&quot;reference external&quot; href=&quot;http://labix.org/python-dateutil#head-ba5ffd4df8111d1b83fc194b97ebecf837add454&quot;&gt;dateutil.relativedelta&lt;/a&gt;
+objects.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">On mixins and the testing thereof</title>
+    <id>http://joshcrompton.com/2014/08/on-mixins-and-the-testing-thereof/</id>
+    <updated>2014-08-10T00:00:00Z</updated>
+    <published>2014-08-10T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2014/08/on-mixins-and-the-testing-thereof/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;I make pretty heavy use of mixins when writing Django code. Mixins are
+great because they allow you to share common behaviour across disparate
+classes (and projects) with very little overhead. Class based views make
+heavy use of mixins, and I use them in a similar manner to compose views
+and forms that do a lot with seemingly little code.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">On private and public interfaces in Python</title>
+    <id>http://joshcrompton.com/2014/03/on-private-and-public-interfaces-in-python/</id>
+    <updated>2014-03-09T00:00:00Z</updated>
+    <published>2014-03-09T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2014/03/on-private-and-public-interfaces-in-python/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;In Sandi Metz&amp;#8217;s excellent &lt;a class=&quot;reference external&quot; href=&quot;http://www.amazon.com/Practical-Object-Oriented-Design-Ruby-Addison-Wesley/dp/0321721330/&quot;&gt;Practical Object-Oriented Design in
+Ruby&lt;/a&gt;
+there&amp;#8217;s a section on creating explicit interfaces. Here, I attempt to
+translate Ruby&amp;#8217;s &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;public&lt;/span&gt;&lt;/code&gt;, &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;private&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;protected&lt;/span&gt;&lt;/code&gt; keywords to
+Python-land. According to Metz, these keywords &lt;em&gt;&amp;#8220;indicate which methods
+are stable and which are unstable&amp;#8221;&lt;/em&gt; and also &lt;em&gt;&amp;#8220;how visible a method
+is&amp;#8221;&lt;/em&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">How to make Django Debug Toolbar display when using Vagrant</title>
+    <id>http://joshcrompton.com/2014/01/how-to-make-django-debug-toolbar-display-when-using-vagrant/</id>
+    <updated>2014-01-18T00:00:00Z</updated>
+    <published>2014-01-18T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2014/01/how-to-make-django-debug-toolbar-display-when-using-vagrant/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Add the following to your development settings:&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">On emacs-starter-kit</title>
+    <id>http://joshcrompton.com/2013/09/on-emacs-starter-kit/</id>
+    <updated>2013-09-09T00:00:00Z</updated>
+    <published>2013-09-09T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2013/09/on-emacs-starter-kit/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;I&amp;#8217;ve been using Emacs exclusively for something like five years now, but
+I still feel like a newbie a lot of the time. Emacs is a big, complex
+beast. I have a relatively small set of techniques that I rely on for
+moving around and editing text, and there aren&amp;#8217;t a lot of major modes
+that I use, outside of the built in python mode.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">TIL: DEBUG=True will eat all your memory</title>
+    <id>http://joshcrompton.com/2012/10/til-debugtrue-will-eat-all-your-memory/</id>
+    <updated>2012-10-12T00:00:00Z</updated>
+    <published>2012-10-12T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/10/til-debugtrue-will-eat-all-your-memory/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;So, there I was synchronising several thousand database records with a
+3rd party server. Off I go to &lt;a class=&quot;reference external&quot; href=&quot;http://xkcd.com/303/&quot;&gt;take care of some serious business while
+I wait&lt;/a&gt; for the sync to complete. But when I
+return instead of seeing a nicely up-to-date database, my machine is
+thrashing so hard it&amp;#8217;s almost completely unresponsive. Turns out Python
+is eating up 80% of the memory.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">How to use sessions in Django unit tests</title>
+    <id>http://joshcrompton.com/2012/09/how-to-use-sessions-in-django-unit-tests/</id>
+    <updated>2012-09-05T00:00:00Z</updated>
+    <published>2012-09-05T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/09/how-to-use-sessions-in-django-unit-tests/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;If you&amp;#8217;ve tried using sessions with the Django test client as the
+&lt;a class=&quot;reference external&quot; href=&quot;https://docs.djangoproject.com/en/dev/topics/testing/#django.test.client.Client.session&quot;&gt;official documentation
+describes&lt;/a&gt;,
+you&amp;#8217;ll have noticed that &lt;strong&gt;it doesn&amp;#8217;t work.&lt;/strong&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">How to turn off CSRF protection for class based views</title>
+    <id>http://joshcrompton.com/2012/09/how-to-turn-off-csrf-protection-for-class-based-views/</id>
+    <updated>2012-09-03T00:00:00Z</updated>
+    <published>2012-09-03T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/09/how-to-turn-off-csrf-protection-for-class-based-views/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;It&amp;#8217;s gotta go on the &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;.dispatch()&lt;/span&gt;&lt;/code&gt; method, not on &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;.post()&lt;/span&gt;&lt;/code&gt; (or
+&lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;.get()&lt;/span&gt;&lt;/code&gt;).&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Dynamic form generation with class based generic views</title>
+    <id>http://joshcrompton.com/2012/08/dynamic-form-generation-with-class-based-generic-views/</id>
+    <updated>2012-08-19T00:00:00Z</updated>
+    <published>2012-08-19T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/08/dynamic-form-generation-with-class-based-generic-views/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Recently I had a situation where I wanted to use a form to gather some
+input, and use that input to generate a second form. Neither form needed
+to interact with the local database, since they were just talking to a
+3rd party API behind the scenes. This is one of those situations that is
+not a primary use-case for Django (read as: near impossible to find an
+example of how to do it.).&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Peace of mind</title>
+    <id>http://joshcrompton.com/2012/07/peace-of-mind/</id>
+    <updated>2012-07-29T00:00:00Z</updated>
+    <published>2012-07-29T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/07/peace-of-mind/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;One of my favourite things about unit tests is the peace of mind they
+afford me. Of course, tests don&amp;#8217;t guarantee bug-free code, but they
+definitely contribute to peace of mind. That&amp;#8217;s especially true when
+you&amp;#8217;re altering existing code, whether making functional changes or
+refactoring.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Using Django's == and in operators on unsaved Model instances</title>
+    <id>http://joshcrompton.com/2012/07/djangos-equal-and-in-operators-on-unsaved-model-instances/</id>
+    <updated>2012-07-18T00:00:00Z</updated>
+    <published>2012-07-18T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/07/djangos-equal-and-in-operators-on-unsaved-model-instances/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;tldr; Don&amp;#8217;t rely on the &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;==&lt;/span&gt;&lt;/code&gt; or &lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;in&lt;/span&gt;&lt;/code&gt; operators before hitting
+&lt;code class=&quot;docutils literal&quot;&gt;&lt;span class=&quot;pre&quot;&gt;.save()&lt;/span&gt;&lt;/code&gt; on your model instances.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Io Day 2 Self-study: I hate contrived examples especially when they involve math</title>
+    <id>http://joshcrompton.com/2012/05/io-day-two-self-study/</id>
+    <updated>2012-05-02T00:00:00Z</updated>
+    <published>2012-05-02T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/05/io-day-two-self-study/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Like it says in the title. The first self-study problem is as follows:&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Io Day Two</title>
+    <id>http://joshcrompton.com/2012/05/io-day-two/</id>
+    <updated>2012-05-01T00:00:00Z</updated>
+    <published>2012-05-01T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/05/io-day-two/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;So in Day 2, we start by looking at the other language feature we need
+in order to really do anything: flow control. That&amp;#8217;s all fairly straight
+forward. You&amp;#8217;ve got your &lt;em&gt;while&lt;/em&gt;, your &lt;em&gt;for&lt;/em&gt; and your
+&lt;em&gt;if...then...else&lt;/em&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Io Day One Self-Study</title>
+    <id>http://joshcrompton.com/2012/05/io-day-one-self-study/</id>
+    <updated>2012-05-01T00:00:00Z</updated>
+    <published>2012-05-01T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/05/io-day-one-self-study/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Long day today, so I just did the Day 1 Self-Study section. It looks
+like &lt;a class=&quot;reference external&quot; href=&quot;http://tech.groups.yahoo.com/group/iolanguage/&quot;&gt;the official mailing list&lt;/a&gt; is livelier than
+both the &lt;a class=&quot;reference external&quot; href=&quot;http://www.reddit.com/r/iolanguage&quot;&gt;iolanguage subreddit&lt;/a&gt;
+and &lt;a class=&quot;reference external&quot; href=&quot;http://stackoverflow.com/questions/tagged/iolanguage&quot;&gt;StackOverflow&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">What to do if Selenium WebDriver won't load anything when you call .get(url)</title>
+    <id>http://joshcrompton.com/2012/04/what-to-do-if-selenium-webdriver-wont-load-anything-when-you-call-geturl/</id>
+    <updated>2012-04-29T00:00:00Z</updated>
+    <published>2012-04-29T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/04/what-to-do-if-selenium-webdriver-wont-load-anything-when-you-call-geturl/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Rage.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Seven Languages in Seven Weeks</title>
+    <id>http://joshcrompton.com/2012/04/seven-languages-in-seven-weeks/</id>
+    <updated>2012-04-29T00:00:00Z</updated>
+    <published>2012-04-29T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/04/seven-languages-in-seven-weeks/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;So today I&amp;#8217;m starting a chain. Everyday I&amp;#8217;m going to spend at least one
+pomomdoro working through &lt;a class=&quot;reference external&quot; href=&quot;http://pragprog.com/book/btlang/seven-languages-in-seven-weeks&quot;&gt;Seven Languages in Seven
+Days&lt;/a&gt;,
+a book from Pragmatic Programmers. Everyday I&amp;#8217;ll publish a post about
+what I did and what I learned. I&amp;#8217;ve worked through the Ruby chapter
+before, and recently ran through the &lt;a class=&quot;reference external&quot; href=&quot;http://www.rubykoans.com/&quot;&gt;Ruby
+Koans&lt;/a&gt;, too, so I&amp;#8217;m going to skip that
+chapter and dive straight into Io. The author says he felt he understood
+Javascript better after spending some time with Io, and I&amp;#8217;m hoping the
+same will be true for me.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Django JSON fixture syntax for ManyToMany and ForeignKey fields</title>
+    <id>http://joshcrompton.com/2012/04/django-json-fixture-syntax-for-manytomany-and-foreignkey-fields/</id>
+    <updated>2012-04-29T00:00:00Z</updated>
+    <published>2012-04-29T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/04/django-json-fixture-syntax-for-manytomany-and-foreignkey-fields/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Python: 2.6.5
+Django: 1.2.0&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">1: Getting started with Io</title>
+    <id>http://joshcrompton.com/2012/04/getting-started-with-io/</id>
+    <updated>2012-04-29T00:00:00Z</updated>
+    <published>2012-04-29T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/04/getting-started-with-io/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;I downloaded a pre-compiled .deb from iolanguage.com and installed it:&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Screencasts are awesome</title>
+    <id>http://joshcrompton.com/2012/03/screencasts-are-awesome/</id>
+    <updated>2012-03-12T00:00:00Z</updated>
+    <published>2012-03-12T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/03/screencasts-are-awesome/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;Apropos my earlier post on installing node.js, Giles Bowkett has a
+video up with more on &lt;a class=&quot;reference external&quot; href=&quot;http://gilesbowkett.blogspot.com.au/2012/02/teaching-robots-to-sing-episode-2-tdd.html&quot;&gt;TDD with
+jasmine-node&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Big news. But not nerdy.</title>
+    <id>http://joshcrompton.com/2012/02/big-news-but-not-nerdy/</id>
+    <updated>2012-02-26T00:00:00Z</updated>
+    <published>2012-02-26T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2012/02/big-news-but-not-nerdy/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;It&amp;#8217;s been quiet here lately. That&amp;#8217;s because I&amp;#8217;ve been very busy. With
+what, you ask? Is dealing with incessant earthquakes not enough? No?
+Well, I&amp;#8217;ve also been busy with moving from my hometown of Christchurch,
+New Zealand to Perth, Australia. I quit my job at the end of January and
+arrived in Perth on the 15th. I&amp;#8217;ve wanted to leave Christchurch for a
+while, and the earthquakes provided an impetus to actually do something
+about it.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Installing node.js and jasmine-node</title>
+    <id>http://joshcrompton.com/2011/12/installing-nodejs-and-jasmine-node/</id>
+    <updated>2011-12-17T00:00:00Z</updated>
+    <published>2011-12-17T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2011/12/installing-nodejs-and-jasmine-node/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;There seem to be a plethora of ways to install node.js, and none of
+them worked initially for me. Even when I got node itself working, npm
+(node&amp;#8217;s creatively named&amp;nbsp;package manager) would refuse to install. Or
+if I got it installed, it would then refuse to install
+jasmine-node. So here&amp;#8217;s what I did to finally get it all working:&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://joshcrompton.com/blog/atom.xml">
+    <title type="text">Why philosophers make good programmers</title>
+    <id>http://joshcrompton.com/2011/12/why-philosophers-make-good-programmers/</id>
+    <updated>2011-12-12T00:00:00Z</updated>
+    <published>2011-12-12T00:00:00Z</published>
+    <link href="http://joshcrompton.com/2011/12/why-philosophers-make-good-programmers/" />
+    <author>
+      <name>Josh Crompton</name>
+    </author>
+    <content type="html">&lt;p&gt;I was speaking to a guy recently and it came up that I was a software
+developer. He asked if I had majored in Computer Science. I told him no,
+my degree was in Philosophy. The guy was blown off his feet. What on
+earth could philosophy have to do with programming? It&amp;#8217;s never really
+seemed strange to me. So, here are some reasons why philosophers make
+good programmers.&lt;/p&gt;
+</content>
+  </entry>
+</feed>

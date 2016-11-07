@@ -1,0 +1,69 @@
+.. post:: 2016-08-01
+   :tags: Elm, Docker
+   :author: Josh Crompton
+
+How to set up a development environment for Elm with Docker
+###########################################################
+
+I've recently started playing around with `Elm <http://elm-lang.org/>`_, a
+purely functional language which compiles to JavaScript. If you haven't heard
+of it already, you should defintely check it out, it's neat.
+
+Elm already has some pretty nice tooling around it, but what makes it even
+nicer is that it's really easy to set up a development environment using
+Docker. This means when you inevitably run out of time to play with Elm, you
+won't have yet another language runtime hanging around on your machine to be
+cleared out when you next have the time (read as: never).
+
+This post assumes you already have Docker installed and configured on your
+machine (if not, you can follow the excellent `documentation
+<https://docs.docker.com/engine/installation/>`_ to fix that).
+
+
+Setting up
+~~~~~~~~~~
+
+Get the docker image by running ``docker pull codesimple/elm:0.17``. This will
+pull down the image for Elm v0.17, which appears to be the latest version as of
+this writing.
+
+Given we have an Elm source file, ``Source.elm``, you can now compile it with the
+following command:
+
+.. code:: sh
+
+    $ docker run \
+      -it --rm -v "$(pwd):/code" \
+      -w "/code" -e "HOME=/tmp" \
+      -u $UID:$GID -p 8000:8000 \
+      codesimple/elm:0.17 \
+      make Source.elm --output=index.html
+
+
+That's quite a mouthful! What's actually happening here? ``$ docker run`` tells
+the docker client to start a container based on the image we specify; ``-it``
+runs the container with an interactive tty; ``--rm`` removes the running
+container after our command finishes; ``-v "$(pwd):/code`` binds the ``/code``
+directory in the container to our current directory and ``-w "/code"`` makes it
+the the working directory; ``-e "HOME=/tmp"`` sets the ``$HOME`` environment
+variable of the container to ``/tmp``; ``-u $UID:$GID`` sets the user and group
+in the container to our current user and group, which preserves correct
+permissions on files created or updated by the container; ``-p 8000:8000``
+exposes any anything running inside the container on port ``8000`` to port
+``8000`` on the host; ``codesimple/elm:0.17`` specifies the image to run and
+``make Source.elm --output=index.html`` runs ``elm-make`` to compile
+``Source.elm`` to ``index.html``.
+
+
+Phew. If you're lazy like me, you won't want to repeat that every time you want to run an Elm command. So lets make a bash alias by adding the following line to our ``~/.bashrc``:
+
+.. code:: sh
+
+    alias elm='docker run -it --rm -v "$(pwd):/code" -w "/code" -e "HOME=/tmp" -u $UID:$GID -p 8000:8000 codesimple/elm:0.17'
+
+
+This makes running any of the built in Elm commands as simple as ``$ elm
+<command> <args>``. For instance, compiling our ``Source.elm`` file can now be
+done with ``$ elm make Source.elm --output=index.html``.
+
+Happy hacking!

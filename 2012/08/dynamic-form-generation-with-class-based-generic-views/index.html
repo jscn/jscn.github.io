@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dynamic form generation with class based generic views</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="None" href="../../../" />
+  
+ 
+<link rel="stylesheet" href="../../../_static/tufte.css" type="text/css" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../../../blog/atom.xml" title="Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+    <div class="sphinxsidebarwrapper">
+      <h3><a href="../../../">Home</a></h3><ul><li></li></ul>
+  <h3><a href="../../../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/2016/">2016 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2015/">2015 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2014/">2014 (6)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2013/">2013 (1)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2012/">2012 (15)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2011/">2011 (2)</a></li>
+    
+  
+  </ul>
+
+  <h3><a href="../../../blog/category/">Categories</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/category/book-reviews/">Book Reviews (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+  </div>
+
+
+<div class="document">
+  <div class="section" id="dynamic-form-generation-with-class-based-generic-views">
+<h1>Dynamic form generation with class based generic views<a class="headerlink" href="#dynamic-form-generation-with-class-based-generic-views" title="Permalink to this headline">¶</a></h1>
+<p>Recently I had a situation where I wanted to use a form to gather some
+input, and use that input to generate a second form. Neither form needed
+to interact with the local database, since they were just talking to a
+3rd party API behind the scenes. This is one of those situations that is
+not a primary use-case for Django (read as: near impossible to find an
+example of how to do it.).</p>
+<p>Initially it looked like a good problem to solve with a FormWizard
+(which got re-written recently to take advantage of generic class-based
+views.) But the FormWizard code is still lacking documentation and it&#8217;s
+pretty difficult to work with, even after consulting the source. I spent
+a significant chunk of time trying to get a solution working with a
+FormWizard (including a bunch of time trying to figure out how to unit
+test FormWizards), before I went back to the drawing board and got this
+alternate solution working in under an hour. The only real advantage to
+using a FormWizard that I can see is that the whole sequence of forms
+lives under a single URL.</p>
+<div class="section" id="the-solution">
+<h2>The solution<a class="headerlink" href="#the-solution" title="Permalink to this headline">¶</a></h2>
+<p>What I wound up with is roughly the same as <a class="reference external" href="http://feeds.feedburner.com/see%20http://jacobian.org/writing/dynamic-form-generation/">Jacob Kaplan-Moss&#8217;s
+solution for dynamic form
+generation</a>,
+but using generic class-based views rather than functional ones. (I
+haven&#8217;t included a urls file here to help keep this brief.)</p>
+<p>First, our <code class="docutils literal"><span class="pre">SearchForm</span></code> displays a first name, last name and email
+field for the user to fill out. When they submit the form, the
+<code class="docutils literal"><span class="pre">SearchFormView</span></code> adds the cleaned data to the session. (That&#8217;s also
+where you&#8217;d place any custom validations you want to do.) Finally we
+redirect them to the <code class="docutils literal"><span class="pre">SearchResultsForm</span></code>.</p>
+<p>When the redirect happens, the <code class="docutils literal"><span class="pre">SearchResultsView</span></code> gets the data that
+we just added to the session and passes it into the
+<code class="docutils literal"><span class="pre">SearchResultsForm</span></code>&#8216;s <code class="docutils literal"><span class="pre">__init__</span></code> method. We take the data and use it
+to get the values for the <code class="docutils literal"><span class="pre">ChoiceField</span></code>. I&#8217;ve left it at that for the
+sake of clarity, but you could chain as many of these together as you
+needed.</p>
+<p><code class="docutils literal"><span class="pre">forms.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SearchForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search for users.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Search fields.</span>
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">SearchResultsForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a list of matching users as (in this case) radio buttons.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Search results&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(),</span>
+                              <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">RadioSelect</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_terms</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SearchResultsForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Get the matching users and add them as choices to a radio button input.</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">fetch_users</span><span class="p">(</span><span class="n">first_name</span><span class="o">=</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="n">last_name</span><span class="p">,</span>
+                                  <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">choices</span> <span class="o">=</span> <span class="n">choices</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">views.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SearchView</span><span class="p">(</span><span class="n">FormView</span><span class="p">):</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;search.html&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SearchForm</span>
+
+    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;search_results&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="c1"># Add the inputs from the form to the session data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;search_terms&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;first_name&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;last_name&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_success_url</span><span class="p">())</span>
+
+<span class="k">class</span> <span class="nc">SearchResultsView</span><span class="p">(</span><span class="n">FormView</span><span class="p">):</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;search_results.html&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SearchResultsForm</span>
+
+    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;search_complete&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_class</span><span class="p">):</span>
+        <span class="n">search_terms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;search_terms&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">form_class</span><span class="p">(</span><span class="n">search_terms</span><span class="o">=</span><span class="n">search_terms</span><span class="p">,</span>
+                          <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">get_form_kwargs</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../../07/peace-of-mind/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Peace of mind
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../../09/how-to-turn-off-csrf-protection-for-class-based-views/">
+    How to turn off CSRF protection for class based views
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+</div>
+
+  </body>
+</html>

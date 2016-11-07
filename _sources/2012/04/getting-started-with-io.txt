@@ -1,0 +1,66 @@
+.. post:: 2012-04-29
+   :tags: io
+   :author: Josh Crompton
+
+1: Getting started with Io
+##########################
+
+
+Installation
+------------
+
+I downloaded a pre-compiled .deb from iolanguage.com and installed it:
+
+.. code-block:: sh
+
+    awget http://iobin.suspended-chord.info/linux/iobin-linux-x86-deb-current.zip
+    unzip iobin-linux-x86-deb-current.zip
+    sudo dpkg -i IoLanguage-2012.03.02-Linux-x86.deb
+
+First explorations
+------------------
+
+The first part of the chapter focuses on the basic syntax of the
+language, how to create Objects and assign methods to them. It then
+moves onto some basic types: lists and maps. Lists are equivalent to
+Python arrays (ordered lists) and Maps are equivalent to Python's dicts
+(a hash of key-value pairs). Lists and Maps have a bunch of convenience
+methods packaged in. Maps in particular have several interesting looking
+methods for transforming themselves into different types or collections.
+asObject returns an Object based on the Map, asList returns a List of
+Lists, etc.:
+
+
+.. code-block:: Io
+
+    Io> foo := Map clone
+    ==> Map_0xa046dd8:
+
+    Io> foo atPut("bar", "baz")
+    ==> Map_0xa046dd8:
+
+    Io> foo atPut("something", "else")
+    ==> Map_0xa046dd8:
+
+    Io> foo asList
+    ==> list(list(something, else), list(bar, baz))
+
+    Io> foo asObject
+    ==> Object_0xa01c1e8:
+    bar = "baz"
+    something = "else"
+
+
+Finally, you can create singletons by re-defining the clone
+method on your object to return itself.
+
+.. code-block:: Io
+
+    Io> Singleton := Object clone
+    ==> Singleton_0xaac9f60:
+    type = "Singleton"
+
+    Io> Singleton clone := Singleton
+    ==> Singleton_0xaac9f60:
+    clone = Singleton_0xaac9f60
+    type = "Singleton"

@@ -1,0 +1,72 @@
+.. post:: 2014-12-14
+   :tags: Python, JavaScript, unit testing
+   :author: Josh Crompton
+   :category: Book Reviews
+
+Programming books I read in 2014
+################################
+
+Practical Object Oriented Design in Ruby
+========================================
+
+*by Sandi Metz*
+
+This book was the best thing I read about software development all year. I had avoided reading it for a while because I'm not fond of Ruby, but decided to make a go of it after hearing Sandi speak on a `couple <http://giantrobots.fm/51>`_ of `podcasts <http://rubyrogues.com/087-rr-book-clubpractical-object-oriented-design-in-ruby-with-sandi-metz/>`_ and `conference talks <https://www.youtube.com/watch?v=URSWYvyc42M>`_ she gave on the same topic. This book has made me much more conscious of the design decisions I make in my code, and how to write unit tests that are a help, not a hindrance. I'm looking forward to seeing how things evolve as I try to apply the techniques in production code.
+
+With clear examples and explanations, Sandi covers how to design unit tests to make code easy to change; composition versus inheritance; designing good APIs for your objects; how to avoid writing big, hard to change classes by writing lots of small, easy to change classes; and more, all while weaving in all the SOLID principles using concrete examples. This book has excellent content and delivery; in my mind it's a model example for how to write a technical book that is engaging and useful.
+
+If you're working with an object oriented language such as Python, Ruby or JavaScript, I highly recommend you read this book as soon as possible. Don't let the "in Ruby" part of the title scare you away, the content is relevant to any OO language.
+
+
+Backbone.js Testing
+===================
+
+*by Ryan Roemer*
+
+I read this book mid-way through the year. I was starting to do more JavaScript development at my dayjob, and had made the decision to go with backbone.js as a way to bring more structure to what I was doing. I did not relish the thought of wading through the quagmire that is the JavaScript eco-system, trying to work out what the best combination of tools would be to allow me to test my JavaScript code. This book was an excellent, no-nonsense guide that allowed me to hit the ground running and be effective quickly, without wasting time on decisions which I would probably later regret.
+
+Nothing in this book is extraneous; you are given a list of tools to use and shown how to use them to test your code. If you're starting to do more front end development and want to be effective quickly, pick up this book and get started.
+
+
+Other books
+===========
+
+I also started several technical books but didn't finish them.
+
+
+Building Backbone Plugins
+-------------------------
+
+*by Derick Bailey and Jerome Gravel-Niquet*
+
+Derick Bailey wrote the ``Marrionette.js`` framework, which sits on top of ``backbone.js``, taking care of some of the boilerplate code that you often need when working directly with ``backbone.js``. I may yet finish this book before the end of the year, which is a pretty good sign considering I'm meant to be on vacation. The book takes you through examples of extracting code from applications written with backbone.js into plugins. It basically exposes the author's thinking as he wrote ``Marrionette.js``. Tentatively recommended, as I haven't finished reading it yet.
+
+
+Understanding Computation
+-------------------------
+
+*by Tom Stuart*
+
+I dropped this book because I was reading a lot of stuff related to my dayjob, and I didn't have the time or mental bandwidth to follow all the threads simultaneously. I plan to complete this one in 2015. Again, it's a book written in Ruby, but I was working on the exercises using Python. This actually helped me understand the content better. The translation from Ruby to Python meant I wasn't so fixated on the implementation, and I learned some things about Python, too. Great book so far.
+
+
+Professional JavaScript for Web Developers
+------------------------------------------
+
+*by Nicholas C. Zakas*
+
+This was the first book I was to read in my plan for actually learning JavaScript properly. Again, I put it down to focus on things more immediately relevant for work and haven't picked it up again. It's pretty dry and pretty long, but also pretty complete, so I plan on finishing it next year.
+
+
+Mastering Object Oriented Python
+--------------------------------
+
+*by Steven F. Lott*
+
+Another long, dry but complete book. This was recommended as a good way to level up my Python skills. I put it down after reading the first couple of chapters because I was already familiar with the material. However, I think it's worth giving it another more serious shot. It looks like later chapters deal with some more obscure material.
+
+
+Addendum
+--------
+
+I am very surprised to find I have only finished two programming books this year (out of a total of thirty-something books). I feel like I've done so much technical reading this year. I think the fact is that I just read a lot of blog posts and news. Also, I started several technical books and never finished them. I think there are two reasons for this: either I dropped a book for something more directly related to my dayjob, or the barrier to reading and taking notes was just too high. Turns out, I really don't like reading technical books in a digital format. I want to highlight, make notes in the margin and engage with the material. I need a physical book to do that. Next year I'll try to buy more physical copies of technical books in the hope that I get through more of them.

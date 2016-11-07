@@ -1,0 +1,26 @@
+.. post:: 2012-05-01
+   :tags: io
+   :author: Josh Crompton
+
+Io Day One Self-Study
+#####################
+
+Long day today, so I just did the Day 1 Self-Study section. It looks
+like `the official mailing list
+<http://tech.groups.yahoo.com/group/iolanguage/>`__ is livelier than
+both the `iolanguage subreddit <http://www.reddit.com/r/iolanguage>`__
+and `StackOverflow
+<http://stackoverflow.com/questions/tagged/iolanguage>`__.
+
+``0`` and ``""`` evaluate to true, ``nil`` evaluates to false.
+
+``=`` assigns to a slot or raises an error of none exists ``:=`` assigns
+to a slot and creates one if none exists ``::=`` assigns to a slot and
+creates one if none exists and creates a setter method for that slot
+
+Finally, _why had `some
+<http://web.archive.org/web/20080212010904/http://hackety.org/2008/01/05/ioHasAVeryCleanMirror.html>`__
+`things
+<http://web.archive.org/web/20080430135919/http://hackety.org/2008/01/10/lazyBricksLazyMortar.html>`__
+to say about Io, and even used it to write a little web framework
+called `yown <https://github.com/whymirror/yown>`__. Now you know.

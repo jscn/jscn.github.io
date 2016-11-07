@@ -1,0 +1,16 @@
+.. post:: 2012-04-29
+   :author: Josh Crompton
+
+Seven Languages in Seven Weeks
+##############################
+
+So today I'm starting a chain. Everyday I'm going to spend at least one
+pomomdoro working through `Seven Languages in Seven
+Days <http://pragprog.com/book/btlang/seven-languages-in-seven-weeks>`__,
+a book from Pragmatic Programmers. Everyday I'll publish a post about
+what I did and what I learned. I've worked through the Ruby chapter
+before, and recently ran through the `Ruby
+Koans <http://www.rubykoans.com/>`__, too, so I'm going to skip that
+chapter and dive straight into Io. The author says he felt he understood
+Javascript better after spending some time with Io, and I'm hoping the
+same will be true for me.

@@ -1,0 +1,18 @@
+.. post:: 2012-04-29
+   :tags: Django
+   :author: Josh Crompton
+
+Django JSON fixture syntax for ManyToMany and ForeignKey fields
+###############################################################
+
+.. code-block:: python
+
+    fixture = [{"pk": 1,
+                "model": "library.Book",
+                "fields": {"authors": [author_primay_key_1,
+		                       author_primary_key_2,
+                                       author_primary_key_3],
+                           "publisher": publisher_primary_key}}]
+
+Python: 2.6.5
+Django: 1.2.0

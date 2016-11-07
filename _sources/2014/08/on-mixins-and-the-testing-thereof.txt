@@ -1,0 +1,143 @@
+.. post:: 2014-08-10
+   :tags: Django, TDD, unit testing
+   :author: Josh Crompton
+
+On mixins and the testing thereof
+#################################
+
+I make pretty heavy use of mixins when writing Django code. Mixins are
+great because they allow you to share common behaviour across disparate
+classes (and projects) with very little overhead. Class based views make
+heavy use of mixins, and I use them in a similar manner to compose views
+and forms that do a lot with seemingly little code.
+
+On the other hand, mixins can be terrible because they can make it
+difficult to figure out exactly what a class does and what methods it
+provides. This is the source of many complaints about class based views.
+I've found that after I got over the initial learning curve, this style
+of composition has proved very powerful, and well worth the additional
+complexity.
+
+One thing I had trouble with when adopting this mixin-oriented style was
+figuring out good ways to unit test the resulting code. It's easy enough
+to test mixins as independent objects, but usually what makes them
+powerful (and potentially hard to debug) is the interactions they have
+with the other classes into which they're mixed. For instance, it's
+usually important to ensure that your mixin's methods call the super
+class methods so that they *add to* rather than *replace* the behaviour
+of the super class.
+
+Let's take an example mixin, which is intended to be used with a
+ModelForm, and which sets a property on the model before saving it.
+
+.. code-block:: python
+
+    class UpdatedByMixin(object):
+
+        def save(self, *args, **kwargs):
+            self.instance.updated_by = self.user
+
+This looks great, but we've forgotten to call ``super``. This mixin will
+correctly update the model instance, but the model will never be saved
+and our change will be lost. We could have avoided that bug by writing a
+test to ensure that the super method gets called. How do we do that?
+
+Let's start by defining a form that we'll use just for testing this
+behaviour. It will mix together our ``UpdatedByMixin`` with a
+``ModelForm``.
+
+.. code-block:: python
+
+    class UpdatedByForm(UpdatedByMixin, ModelForm):
+
+        class Meta:
+            model = MyModel
+
+	def __init__(self, user, *args, **kwargs):
+            self.user = user
+            super(UpdatedByForm, self).__init__(self, *args, **kwargs)
+
+We also need a couple of test doubles to get the model form working. At
+minimum, a ``ModelForm`` needs an instance, and the form we defined
+requires a ``User`` to set the ``updated_by`` property.
+
+.. code-block:: python
+
+    class ModelStub(object):
+        pass
+
+    class UserStub(object):
+        pass
+
+And finally we can write our test. The key here is to use the ``Mock``
+library to patch the call to ``super``, and then verify that the call
+was made.
+
+.. code-block:: python
+
+    from mock import patchclass
+
+    TestUpdatedByMixin(TestCase):
+
+        @patch('django.forms.ModelForm.save')
+	def test_calls_super_class_save_method(self, superclass_save):
+            form = UpdatedByForm()
+            form.user = UserStub()
+            form.instance = ModelStub()
+
+            form.save()
+
+            self.assertTrue(superclass_save.called)
+
+This test will fail, because our mixin is not calling its super class's
+``save`` method.
+
+.. code-block:: sh
+
+    $ python manage.py testCreating test database for alias 'default'...
+    F
+    ======================================================================
+
+    FAIL: test_calls_super_class_save_method (exampleapp.tests.TestUpdatedByMixin)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+
+    File "/home/jscn/work/code/temp/local/lib/python2.7/site-packages/mock.py", line 1201, in patched
+    return func(*args, **keywargs)
+
+    File "/home/jscn/work/code/temp/supertest/exampleapp/tests.py", line 27, in test_calls_super_class_save_method 
+    self.assertTrue(superclass_save.called)
+    AssertionError: False is not true
+
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.002s
+
+    FAILED (failures=1)
+    Destroying test database for alias 'default'...
+
+Now we can write the code to make it pass:
+
+.. code-block:: python
+
+    class UpdatedByMixin(object):
+
+        def save(self, *args, **kwargs):
+            self.instance.updated_by = self.user
+            super(UpdatedByMixin, self).save(*args, **kwargs)
+
+.. code-block:: sh
+
+    $ python manage.py testCreating test database for alias 'default'...
+    .
+
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.001s
+
+    OK
+    Destroying test database for alias 'default'...
+
+Mixins are a powerful way to share behaviour across objects. It's
+vital to ensure that your mixins correctly extend the behaviour of the
+classes into which they're mixed. With the `Mock
+<http://www.voidspace.org.uk/python/mock/>`__ library you can ensure
+that your mixin classes make the appropriate calls.

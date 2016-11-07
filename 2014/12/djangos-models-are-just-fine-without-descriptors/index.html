@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Django’s models are just fine without descriptors</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="None" href="../../../" />
+  
+ 
+<link rel="stylesheet" href="../../../_static/tufte.css" type="text/css" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../../../blog/atom.xml" title="Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+    <div class="sphinxsidebarwrapper">
+      <h3><a href="../../../">Home</a></h3><ul><li></li></ul>
+  <h3><a href="../../../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/2016/">2016 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2015/">2015 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2014/">2014 (6)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2013/">2013 (1)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2012/">2012 (15)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2011/">2011 (2)</a></li>
+    
+  
+  </ul>
+
+  <h3><a href="../../../blog/category/">Categories</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/category/book-reviews/">Book Reviews (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+  </div>
+
+
+<div class="document">
+  <div class="section" id="django-s-models-are-just-fine-without-descriptors">
+<h1>Django&#8217;s models are just fine without descriptors<a class="headerlink" href="#django-s-models-are-just-fine-without-descriptors" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">date:</th><td class="field-body">18:59</td>
+</tr>
+<tr class="field-even field"><th class="field-name">author:</th><td class="field-body">jscn</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">slug:</th><td class="field-body">djangos-models-are-just-fine-without-descriptors</td>
+</tr>
+</tbody>
+</table>
+<p>In his post <a class="reference external" href="http://blog.kevinastone.com/django-model-descriptors.html">&#8220;Django Model
+Descriptors&#8221;</a>,
+the author, Kevin Stone, asserts that using descriptors is a good way to
+extend the functionality of Django models and fields to include business
+logic. While descriptors do make this possible, I do not agree that
+doing so is a good idea. I also contend that there are simpler ways to
+achieve the same results, should one wish to do so.</p>
+<div class="section" id="models-should-not-include-business-logic">
+<h2>Models should not include business logic<a class="headerlink" href="#models-should-not-include-business-logic" title="Permalink to this headline">¶</a></h2>
+<p>A model&#8217;s duty (you might say, it&#8217;s single responsibility) is to
+validate data and handle storing and retrieving that data. If you start
+adding other responsibilities to a model object, that is going to cause
+all the problems associated with violating the <a class="reference external" href="http://c2.com/cgi/wiki?SingleResponsibilityPrinciple">Single Responsibility
+Principle</a>.</p>
+<p>This seems to be a common pattern with Django applications. A lot of
+Django models get really fat, filled to the brim with business logic,
+because it&#8217;s the easy place to put that stuff. But it&#8217;s not the model&#8217;s
+responsibility. The model&#8217;s responsibility is to validate, store and
+retrieve data.</p>
+<p>One effect of this anti-pattern is that your unit tests will be slow
+because they <em>must</em> interact with the database, even when you are only
+trying to test your application&#8217;s business logic. It also makes it is
+harder to reason about your program. It means your application is more
+tightly coupled to the Django code, so if you have to change to another
+framework for some reason, it will be much harder to extract the
+relevant code from the irrelevant. In short, it&#8217;s a violation of SRP,
+and comes with all the risks and problems associated with that.</p>
+</div>
+<div class="section" id="computed-values">
+<h2>Computed values<a class="headerlink" href="#computed-values" title="Permalink to this headline">¶</a></h2>
+<p>Stone correctly shoots down the idea of just adding convenience methods
+to a model as a way of getting computed values. This is another common
+anti-pattern in Django applications. It&#8217;s easy to do, and it doesn&#8217;t
+seem to do too much harm. If it gets to be &#8220;too much&#8221; and the model
+becomes &#8220;too complicated&#8221;, then it can always be refactored, right? Of
+course, this refactoring almost never happens. Especially once code in
+other parts of your application starts relying on the existence of these
+convenience methods (which it will do immediately, since you added the
+convenience method in order for code elsewhere in your application to
+use it).</p>
+<p>Stone suggests that a good alternative to convenience methods is to use
+descriptors to extend the functionality of the field. Essentially, he
+wants to move the convenience methods from the model class to the field
+class.</p>
+<p>But this is no solution at all. The convenience methods still exist,
+they have just been moved more deeply into the object hierarchy. Now
+your code violates the Law of Demeter as well as the SRP. In Stone&#8217;s
+example, to get the hostname you must call <code class="docutils literal"><span class="pre">object.url.hostname</span></code>. Now
+you have too much knowledge of the internals of your model and its
+fields. Worse, you&#8217;ve the added the responsibility of manipulating data
+to your field class, whose sole responsibility should be to translate
+between database values and Python values.</p>
+<p>So Stone&#8217;s example solves one problem by replacing it with another,
+different problem, while introducing a lot of complexity to the code:
+descriptors, a sub-class of <code class="docutils literal"><span class="pre">URLField</span></code> and added some metaprogramming
+shenanigans.</p>
+</div>
+<div class="section" id="put-the-object-back-into-object-oriented">
+<h2>Put the &#8220;Object&#8221; back into &#8220;Object Oriented&#8221;<a class="headerlink" href="#put-the-object-back-into-object-oriented" title="Permalink to this headline">¶</a></h2>
+<p>In Stone&#8217;s example, it would be much cleaner to introduce a new object
+with the <strong>single responsibility</strong> of extracting a hostname from a URL
+string <a class="footnote-reference" href="#f1" id="id1">[1]</a>.
+This allows us to unit test that functionality without touching the
+database and re-use that object in other projects (which may not involve
+Django at all.)</p>
+</div>
+<div class="section" id="alternate-representations-of-data">
+<h2>Alternate representations of data<a class="headerlink" href="#alternate-representations-of-data" title="Permalink to this headline">¶</a></h2>
+<p>A second possible use for descriptors that Stone presents is as a way of
+offering alternative representations of model data. The example he
+presents of making a timestamp do double duty as a boolean is a pattern
+I also like, and one I&#8217;ve used a lot. However, it is not a good
+candidate for the use of descriptors as he suggests.</p>
+<p>It is pretty clear that the responsibility of a Django <code class="docutils literal"><span class="pre">Field</span></code> class
+is to validate and translate data between the database and Python. The
+job of offering alternate representations of that data is clearly out of
+scope. But the suggested solution violates the Single Responsibility
+Principle, introduces unnecessary complexity and makes the code harder
+to understand.</p>
+<p>I&#8217;ve already talked about the first problem, so I&#8217;ll only mention here
+that Stone introduces a descriptor class in addition to a sub-class of
+the the <code class="docutils literal"><span class="pre">DateTimeField</span></code>. The same effect could be achieved with a
+single line function on the model, <code class="docutils literal"><span class="pre">is_published()</span></code> which returns
+whether or not the value of the field is <code class="docutils literal"><span class="pre">None</span></code> <a class="footnote-reference" href="#f2" id="id2">[2]</a>.  This is
+much less complex and can be understood by a fellow developer in a
+glance.</p>
+<p>This would also mean that another developer (or myself at a later date)
+is less likely to mistakenly think that the <code class="docutils literal"><span class="pre">is_published</span></code> property
+is actually a database value that can be used to filter queryset
+results. Again, this is a case of adding complexity for no gain.</p>
+</div>
+<div class="section" id="descriptors-are-the-wrong-tool-for-these-jobs">
+<h2>Descriptors are the wrong tool for these jobs<a class="headerlink" href="#descriptors-are-the-wrong-tool-for-these-jobs" title="Permalink to this headline">¶</a></h2>
+<p>When I first heard about descriptors, I started thinking of all the cool
+ways I could hack Django models with them. I could completely hide the
+data of the model, and provide a much better thought out, more
+intentional API. If the database representation changed, I could just
+update the internals of the API methods and I wouldn&#8217;t have to change my
+application code.</p>
+<p>But this is wrong thinking. A model is a model. Its duty is to expose
+database values. The problem lies in thinking that it should do double
+duty as a repository of business logic and other unrelated behaviour.</p>
+<p>I get it, descriptors are a clever language feature and you can do
+some nifty things with them. And Stone&#8217;s blog post even does a pretty
+good job of explaining what they are <a class="footnote-reference" href="#f3" id="id3">[3]</a> and showing some possible
+uses for them. But please don&#8217;t implement those suggestions in your
+production code. Using descriptors as Stone suggests will make your
+code harder to reason about and harder to change in the future.</p>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Two good candidates might be a <code class="docutils literal"><span class="pre">Hostname</span></code> class that takes a URL
+string and returns the hostname portion from its <code class="docutils literal"><span class="pre">__str__</span></code>method, or
+a <code class="docutils literal"><span class="pre">URL</span></code> class that takes a URL string and returns the hostname portion
+from a <code class="docutils literal"><span class="pre">hostname</span></code> property or method.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>If you really wanted it to be a property, not a method call, then
+you could add a &#64;property decorator. But I would leave it as method
+unless doing so would break backwards compatibility, for the simple
+reason that it is more immediately clear that it is a computed value,
+not a database value.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://pyvideo.org/video/3123/descriptors-attribute-access-redefined-by-fraser">Fraser Tweedale&#8217;s PyCon AU 2014 talk on descriptors</a>
+dives into much more detail.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../../08/storing-durations-on-django-models/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Storing durations on Django models
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../programming-books-i-read-in-2014/">
+    Programming books I read in 2014
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+</div>
+
+  </body>
+</html>

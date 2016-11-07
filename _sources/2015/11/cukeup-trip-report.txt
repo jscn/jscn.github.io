@@ -1,0 +1,38 @@
+.. post:: 2015-11-30
+   :tags: BDD
+   :author: Josh Crompton
+
+CukeUp! AU 2015 Highlights
+##########################
+
+Recently I was lucky enough to attend `CukeUp! <https://cucumber.io/events/cukeup-australia-2015>`_ in Sydney. It's the first time that the conference has been run in Australia, and I hope it's not the last. I really liked the format, with morning and afternoon talks bookending workshops which ran before and after lunch. Technical conferences can sometimes become a strange kind of spectator sport. The workshops really helped me get out of that mode and get engaged.
+
+The crowd was really friendly and diverse, with people from all kinds of backgrounds and disciplines. I think developers may have actually been in the minority, with a lot of testers and BAs in attendance. The speakers were friendly and approachable, and I had some great conversations. Below are some of the talks and workshops that were highlights for me.
+
+
+Twelve BDD Anti-Patterns
+------------------------
+
+`John Smart's <https://twitter.com/wakaleo>`_ talk, *Twelve BDD Anti-Patterns: Stories from the Trenches about how NOT to do Behaviour Driven Development*, was probably the most technical of the conference. Which is saying something, because I don't remember seeing a single line of code. In fact, most of the anti-patterns John described come down to focusing on the technical tooling instead of collaboration. It turned out this would be a recurring theme of the conference, which I didn't expect but was surprisingly refreshing!
+
+
+Example Mapping
+---------------
+
+`Matt Wynne <https://twitter.com/mattwynne>`_ ran a great workshop on *Example Mapping*, which he describes as "a simple, practical technique that you can use to break down any user story". I've already started trying these sessions at the dayjob, so this was probably the most actionable workshop of the conference for me.
+
+I did notice that it was quite hard for the group to maintain focus on the story in hand. A lot of tangents came up, and we drifted off topic and had some difficulty coming up with really good outputs. This has also been the case when I tried the technique at work, so I'm left wondering how to prepare *before* the session to prevent that. I'd love to see a set of entry criteria for running one of these sessions.
+
+
+Be the Collaboration Hero Your Agile Team Needs You to Be
+---------------------------------------------------------
+
+This workshop, run by `Em Campbell-Pretty <https://twitter.com/PrettyAgile>`_, was *really* good. The workshop was itself an example of the techniques taught in the workshop, so we got to see Em modelling the behaviours first-hand. Because it went so smoothly, it was also a demonstration of the effectiveness of the approach--clever!
+
+There were a few questions about how to effectively collaborate with remote teams. One thing Em suggested that stood out to me was to ensure that everyone, even the co-located team, dial in using the same conferencing software. This puts everyone on the same footing, dealing with the same communication problems, rather than privileging the co-located folks.
+
+
+What next?
+----------
+
+If CuekUp! runs again next year, especially if it runs in Melbourne (hint, hint), it'll be at the top of my conference list. Hopefully I'll be able to bring some co-workers with me. In the meantime, I have plenty of ideas to try out (and books to read).

@@ -1,0 +1,45 @@
+.. post:: 2014-03-09
+   :tags: Python
+   :author: Josh Crompton
+
+On private and public interfaces in Python
+##########################################
+
+In Sandi Metz's excellent `Practical Object-Oriented Design in
+Ruby <http://www.amazon.com/Practical-Object-Oriented-Design-Ruby-Addison-Wesley/dp/0321721330/>`__
+there's a section on creating explicit interfaces. Here, I attempt to
+translate Ruby's ``public``, ``private`` and ``protected`` keywords to
+Python-land. According to Metz, these keywords *"indicate which methods
+are stable and which are unstable"* and also *"how visible a method
+is"*.
+
+Python doesn't have any direct equivalent to these keywords. All
+attributes and methods on an object are accessible by any other object.
+(This can be both a blessing and a curse.) However, we do have a
+convention that allows us to follow the spirit of Ruby's ``private`` and
+``protected`` keywords.
+
+According `the venerable PEP
+8 <http://legacy.python.org/dev/peps/pep-0008/>`__, we should *"[u]se
+one leading underscore only for non-public methods and instance
+variables."* Note that Python's built in ``help`` function only renders
+"public" methods and attributes. Similarly, tab completion in the REPL
+will by default only list "public" things, although you can get a
+complete listing by typing an underscore before hitting *TAB*.
+
+We also have the ability to explicitly set the visible contents of a
+module using the ``__all__`` attribute. Defined in a module's
+``__init__.py``, this attribute restricts the things that may imported
+from that module.
+
+So in Python, any method or attribute of a class whose name starts with
+an underscore, and any class, function or attribute of a module which is
+not present in that module's ``__all__`` listing should be considered
+part of the private interface.
+
+Because we can't distinguish between ``private`` and ``protected``, Metz
+claims that we'll be conflating two very different things: a method's
+*stability*, and it's *visibility*. However, Metz also admits that most
+Rails programmers use a similar leading-underscore convention for
+private/protected methods and attributes, rather than enforcing it at
+the language level. Maybe it doesn't matter so much in practice.

@@ -1,0 +1,92 @@
+.. post:: 2011-12-17
+   :tags: JavaScript
+   :author: Josh Crompton
+
+Installing node.js and jasmine-node
+###################################
+
+There seem to be a plethora of ways to install node.js, and none of
+them worked initially for me. Even when I got node itself working, npm
+(node's creatively named package manager) would refuse to install. Or
+if I got it installed, it would then refuse to install
+jasmine-node. So here's what I did to finally get it all working:
+
+Install node.js
+---------------
+
+At the time I wrote this post, the development version of node was
+failing to build. So, rather than installing the latest version from
+git, I had to install from the last stable version:
+
+.. code-block:: sh
+
+    wget http://nodejs.org/dist/v0.6.5/node-v0.6.5.tar.gztar \
+        -xvf node-v0.6.5.tar.gz./configure \
+	--prefix=~/localmake install
+
+This will install node into ~/local, and conveniently also installs
+npm. Finally, add this line to your .bashrc so bash can find node:
+
+.. code-block:: sh
+
+    export PATH=$HOME/local/bin:$PATH
+
+Install jasmine-node
+--------------------
+
+By default, npm will simply install packages to your pwd. I prefer
+this option over doing a system wide install, since I can have a
+per-project environment (somewhat like python's virtualenv). You can
+install jasmine-node into the project directory like so:
+
+.. code-block:: sh
+
+    makdir test_project && cd test_projectnpm install jasmine-node
+
+Write a simple test
+-------------------
+
+You're now ready to start writing test specs. Jasmine expects your
+tests to reside in ``test_project/spec/`` and be named
+``whatever.spec.js``.  So save the following as
+``test_project/spec/test_hello.spec.js``
+
+.. code-block:: javascript
+
+    var hello = require('../hello');
+
+    describe('hello_world', function() {
+      it('should return hello world', function() {
+        var returned_string = hello.hello_world();
+        expect(returned_string).toEqual("Hello, world!");
+      });
+
+    });
+
+You'll need something to test, too, so save the following in
+``test_project`` parent directory:
+
+.. code-block:: javascript
+
+    function hello_world() {return "Hello, world!";}
+    exports.hello_world = hello_world;
+
+Finally, you can run
+``jasmine-node`` and see the test pass. From inside ``test_project``,
+run the following command:
+
+.. code-block:: sh
+
+    ./node_modules/jasmine-node/bin/jasmine-node spec/
+
+you should see the following output:
+
+.. code-block:: sh
+
+    Started
+    .
+
+    Finished in 0.002 seconds
+    1 test, 1 assertion, 0 failures
+
+Bam! Up and running with node.js and jasmine-node.

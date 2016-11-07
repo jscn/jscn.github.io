@@ -1,0 +1,21 @@
+.. post:: 2012-04-29
+   :author: Josh Crompton
+
+What to do if Selenium WebDriver won't load anything when you call .get(url)
+############################################################################
+
+#. Rage.
+#. Search the internet for two days trying to find other people that
+   have the same problem.
+#. Lament the fact that right now you have to work on a crippled Windows
+   XP machine.
+#. Stumble on an old bug report that implies the problem might be with
+   your proxy settings.
+#. Reflect on how problematic the corporate proxy which you're stuck
+   behind has been.
+#. Rage a little more.
+#. Open IE.
+#. Go to Tools > Internet Options > Connections (tab) > LAN settings
+   (button) > Advanced (button under Proxy Settings).
+#. Append 127.0.0.1\* to the list of Exceptions.
+#. You're welcome.

@@ -1,0 +1,21 @@
+.. post:: 2014-01-18
+   :tags: Django
+   :author: Josh Crompton
+
+How to make Django Debug Toolbar display when using Vagrant
+###########################################################
+
+Add the following to your development settings:
+
+.. code-block:: sh
+
+    INTERNAL_IPS = (127.0.0.1, 10.0.2.2)
+
+By default, Virtual Box sets up its networking such that all virtual
+machines networking goes through a gateway at ``10.0.2.2``. By default,
+Django Debug Toolbar will only be displayed if your IP is in the
+``INTERNAL_IPS`` list.
+
+I'm leaving in ``127.0.0.1`` so that if I (or, a co-worker) run the
+server from outside of the VM, Django Debug Toolbar will still be
+displayed.

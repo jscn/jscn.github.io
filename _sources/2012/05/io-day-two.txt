@@ -1,0 +1,27 @@
+.. post:: 2012-05-01
+   :tags: io
+   :author: Josh Crompton
+
+Io Day Two
+##########
+
+So in Day 2, we start by looking at the other language feature we need
+in order to really do anything: flow control. That's all fairly straight
+forward. You've got your *while*, your *for* and your
+*if...then...else*.
+
+The third section, *Reflection*, is also fairly straightforward. An
+object can look at it's own slots, and the slots of it's ancestors.
+
+I don't want to say the middle section, *Messages*, was confusing,
+because it was more like *totally opaque*. It's not so much hard to
+understand as *I just don't get what the big deal is.* Which leads me to
+suspect that I've missed the point. I expect I won't really understand
+it until I get through doing the self study exercises. But that will
+have to wait until tomorrow.
+
+The one other thing I learned today, is that an hour is not really long
+enough to make much progress. At this rate, it's going to take at least
+a couple days to make it out the other side of Day 2, and I expect Day 3
+will take even longer. So this might not be so much *Seven Languages in
+Seven Weeks* as *Seven Languages in Several Months*.

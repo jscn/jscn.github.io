@@ -1,0 +1,59 @@
+.. post:: 2012-03-12
+   :tags: JavaScript
+   :author: Josh Crompton
+
+Screencasts are awesome
+#######################
+
+Apropos my earlier post on installing node.js, Giles Bowkett has a
+video up with more on `TDD with
+jasmine-node <http://gilesbowkett.blogspot.com.au/2012/02/teaching-robots-to-sing-episode-2-tdd.html>`__.
+
+It's part of a course/screencast series Giles is running
+teaching JavaScript, CoffeeScript, Node.js, Backbone and Socket.io. I've
+bought some of Giles' videos in the past, and they are awesome. If I
+were actually employed at the moment, I'd be enrolled in the course and
+watching the videos right now instead of writing this blog post. (Well,
+actually, I guess I'd be at the office, but you take my point.)
+
+Screencasts are now my preferred way of learning. Being as there has
+never been much of a software development community in my hometown, one
+of the biggest hurdles to improving my programming skills has been a
+lack of peers from whom to learn. Well, I think I've found a
+solution. The answer for me has been screencasts. Screencasts are
+awesome. Essentially, I get to look over the shoulder of someone who's a
+better programmer than me, and watch them work. I guess this is similar
+to pair programming, except that a) I can rewatch it any time I like and
+b) they're rehearsed, so they're more informative than a regular pair
+programming session. I'm also not wasting anyone's time or interfering
+with anyone's work, which I might do if I'm pairing with someone
+significantly better than me.
+
+Also, there's no ego with screencasts. I'm not competing to look
+smarter (or to not look dumb) as can sometimes be the case with
+co-workers. Even just the act of watching a high level developer working
+is inspiring and informative. Getting a feel for how she uses her tools,
+her workflow and her thought process is really powerful. But the best
+thing is that it no longer matters if you're isolated. Sure, you can
+read blogs and futz around on Hacker News, but it just doesn't compare
+to actually watching someone while they work, and listening to their
+explanations while they're doing it. Even the little things as
+developers self-talk, make mistakes, fix them and figure things out. So,
+if you're a little lacking on the technical peer front, or even if
+you're not, you should totally watch screencasts.
+
+Some places to start:
+
+-  `Peepcode <http://peepcode.com/>`__, especially the
+   `play-by-plays <http://peepcode.com/screencasts/play-by-play>`__
+-  `RailsCasts <http://railscasts.com/>`__ has a bunch of free-to-watch
+   videos, along with some you gotta shell out for
+-  `Gary Bernhardt <http://twitter.com/garybernhardt>`__ has an
+   ever-growing series at \ `Destroy All
+   Software <https://www.destroyallsoftware.com/screencasts>`__ which
+   I'll definitely be subscribing to
+-  `Giles Bowkett <http://gilesbowkett.blogspot.com/>`__, as mentioned,
+   has a few videos (and some screencasts) which are pretty great, some
+   free and some for pay. You'll have to search around his blog to find
+   them, though. He really needs to put together a site where you can
+   find them all.

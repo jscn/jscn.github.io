@@ -1,0 +1,230 @@
+=======
+Summary
+=======
+
+ - A broad range of experience developing and testing software across multiple
+   domains.
+ - Over ten year's Python experience, with more than five year's experience in
+   web development, focusing primarily on Django.
+ - Six year's experience working on embedded systems and radio
+   communications equipment.
+ - Experience working in companies and teams of varying sizes, ranging from
+   more than 800 employees to solo freelance work.
+
+
+==================
+Employment History
+==================
+
+
+Infoxchange Australia (2015 – present)
+======================================
+
+Infoxchange Australia is a non-profit organisation which focuses on technology
+for social justice. Recent major customers include Red Cross Australia,
+Queensland Police and the Queensland Family and Child Commission.
+
+Senior Web Developer
+--------------------
+
+ - Maintained and extended several Python web applications, while increasing
+   test coverage, improving documentation and bringing projects up to date with
+   community norms.
+
+ - Maintained and updated Docker images and workflows for developing, building
+   and deploying those applications.
+
+ - Performed code reviews, managed releases and worked with other internal
+   groups in a DevOps environment to debug issues across multiple applications
+   communicating over HTTP APIs and message queues.
+
+ - Provided support and mentoring to junior developers working for the first
+   time with Django and Docker.
+
+ - Initiated and ran fortnightly "Lunch and Learn" sessions with the
+   development group where we watched conference talks and discussed software
+   related topics, helping to increase communication and alignment between
+   teams.
+
+ - Performed significant refactoring work allowing for faster development of
+   new features.
+
+Web Developer
+-------------
+
+ - Developed new features and fixed bugs in a suite of web applications
+   spanning multiple languages and frameworks, and communicating via REST APIs.
+
+ - Performed code reviews, helping to ensure code was written idiomatically
+   across different languages and frameworks.
+
+
+The Cut Creative (2012 – 2014)
+==============================
+
+The Cut Creative is a small design, development and advertising agency based
+in Perth, Western Australia.
+
+Developer
+---------
+
+ - Developed an open source Django app providing model and form fields for
+   storing time durations and providing objects for easy date & time
+   calculations in Python.
+
+ - Designed and built the backend for an e-commerce site, integrating with
+   third-party stock management and payment systems.
+
+ - With one other developer, designed and built a Django-based application for
+   managing sport centres with complex scheduling and billing requirements.
+
+ - Built JSON API endpoints with Django Rest Framework and related frontend
+   components with HTML, JavaScript and Backbone.js.
+
+ - Introduced unit testing to the company's development process.
+
+ - Drove development of automated tests for new and existing projects, allowing
+   our small team to build and deploy significantly larger applications.
+
+
+CBH Group (April 2012 – June 2012)
+==================================
+
+CBH Group is a grain grower's cooperative with around 1,200 permanent
+staff. They support growers transporting, processing and marketing grain.
+
+QA Engineer (contract position)
+-------------------------------
+
+ - Performed exploratory testing and participated in design workshops for a
+   mobile application which provides real-time updates on grain prices to
+   drivers, allowing them to get the best possible prices for their deliveries.
+
+ - Designed and developed Cucumber-based automated tests with Python and
+   Selenium.
+
+ - Collaborated with Business Analysts to ensure systems owned by other
+   internal groups provided the required functionality.
+
+
+Tait Communications (2011 – 2012)
+===================================
+
+Tait Communications is a radio communications company headquartered in
+Christchurch, New Zealand, which designs, develops and manufactures analog and
+digital radio communication equipment. Major customers include the New Zealand
+Police, London Buses and Victoria's Country Fire Authority.
+
+Software Design Engineer
+------------------------
+
+ - Worked closely with senior engineers to fix bugs and contribute automated
+   tests to a large, legacy embedded-C code-base.
+
+ - Developed test designs for new features.
+
+ - Performed exploratory testing and provided feedback to developers on short
+   timescales.
+
+
+Freelance (2010 – 2011)
+=======================
+
+I worked with local designers to produce web sites for small businesses and
+artists, with a particular focus on aesthetics.
+
+ - Collaborated with graphic designers to build websites with Django.
+
+ - Provided time estimates and prepared quotes for clients.
+
+ - Delivered completed projects on time and on budget.
+
+ - Managed all financial aspects of the business including invoicing and tax
+   returns.
+
+
+Treshna Enterprises Ltd. (2009 – 2010)
+======================================
+
+Treshna Enterprises is a small software consultancy based in Christchurch, New
+Zealand, specialising in open-source development.
+
+Programmer
+----------
+
+ - Maintained and extended web applications written in Python and SQL.
+
+ - Worked with two other developers to implement a secure wifi hotspot.
+
+
+Tait Electronics Ltd (2004 – 2009)
+==================================
+
+Now known as Tait Communications (see above).
+
+Test Analyst
+------------
+
+ - Designed and developed tests to provide stability and performance
+   statistics.
+
+ - Single-handedly improved automated test coverage by more than four
+   times.
+
+ - Assisted in planning test activities for several major software releases.
+
+ - Designed and developed scripts to assist in manual testing
+   activities by creating background traffic on a radio communications
+   network.
+
+Junior Test Analyst
+-------------------
+
+ - Introduced Python for test automation, and drove adoption across the
+   department, removing the need for costly proprietary software licenses.
+
+ - Designed and developed automated tests for voice encryption, removing the
+   need for time consuming and error prone manual tests.
+
+ - Performed exploratory testing.
+
+
+=====
+Other
+=====
+
+ - 2014 – primary author of thecut-durationfield, an open source Django app
+   which makes it easy to store (as ISO 8601 compliant strings) and work with
+   durations (relativedelta objects) –
+   https://github.com/thecut/thecut-durationfield
+
+ - 2014 – technical reviewer for several chapters of "500 Lines or Less", the
+   latest book in the Architecture of Open Source Applications series –
+   www.aosabook.org
+
+ - 2014 – Django Girls mentor at PyCon AU 2014 – djangogirls.org
+
+
+=========
+Education
+=========
+
+ - 2010 – Bachelor of Science, University of Canterbury
+
+Training courses
+================
+
+ - 2016 – Core Elasticsearch: Developer – two-day training course from Elastic
+ - 2014 – Rapid Software Testing – three-day course from James Bach
+
+
+========
+Keywords
+========
+
+ - Python: Django, Django Rest Framework, Celery, pypi
+ - JavaScript: Backbone.js, React, elm, Mocha, Chai
+ - Tools: Linux, Emacs, Docker, Git
+ - Miscellaneous: Test Driven Development, TDD, Behaviour Driven Development,
+   BDD, Scrum, Object Oriented Programming, Exploratory Testing, Test
+   Automation

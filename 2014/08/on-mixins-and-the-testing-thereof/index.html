@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>On mixins and the testing thereof</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="None" href="../../../" />
+  
+ 
+<link rel="stylesheet" href="../../../_static/tufte.css" type="text/css" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../../../blog/atom.xml" title="Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+    <div class="sphinxsidebarwrapper">
+      <h3><a href="../../../">Home</a></h3><ul><li></li></ul>
+  <h3><a href="../../../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/2016/">2016 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2015/">2015 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2014/">2014 (6)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2013/">2013 (1)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2012/">2012 (15)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2011/">2011 (2)</a></li>
+    
+  
+  </ul>
+
+  <h3><a href="../../../blog/category/">Categories</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/category/book-reviews/">Book Reviews (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+  </div>
+
+
+<div class="document">
+  <div class="section" id="on-mixins-and-the-testing-thereof">
+<h1>On mixins and the testing thereof<a class="headerlink" href="#on-mixins-and-the-testing-thereof" title="Permalink to this headline">¶</a></h1>
+<p>I make pretty heavy use of mixins when writing Django code. Mixins are
+great because they allow you to share common behaviour across disparate
+classes (and projects) with very little overhead. Class based views make
+heavy use of mixins, and I use them in a similar manner to compose views
+and forms that do a lot with seemingly little code.</p>
+<p>On the other hand, mixins can be terrible because they can make it
+difficult to figure out exactly what a class does and what methods it
+provides. This is the source of many complaints about class based views.
+I&#8217;ve found that after I got over the initial learning curve, this style
+of composition has proved very powerful, and well worth the additional
+complexity.</p>
+<p>One thing I had trouble with when adopting this mixin-oriented style was
+figuring out good ways to unit test the resulting code. It&#8217;s easy enough
+to test mixins as independent objects, but usually what makes them
+powerful (and potentially hard to debug) is the interactions they have
+with the other classes into which they&#8217;re mixed. For instance, it&#8217;s
+usually important to ensure that your mixin&#8217;s methods call the super
+class methods so that they <em>add to</em> rather than <em>replace</em> the behaviour
+of the super class.</p>
+<p>Let&#8217;s take an example mixin, which is intended to be used with a
+ModelForm, and which sets a property on the model before saving it.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UpdatedByMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">updated_by</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span>
+</pre></div>
+</div>
+<p>This looks great, but we&#8217;ve forgotten to call <code class="docutils literal"><span class="pre">super</span></code>. This mixin will
+correctly update the model instance, but the model will never be saved
+and our change will be lost. We could have avoided that bug by writing a
+test to ensure that the super method gets called. How do we do that?</p>
+<p>Let&#8217;s start by defining a form that we&#8217;ll use just for testing this
+behaviour. It will mix together our <code class="docutils literal"><span class="pre">UpdatedByMixin</span></code> with a
+<code class="docutils literal"><span class="pre">ModelForm</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UpdatedByForm</span><span class="p">(</span><span class="n">UpdatedByMixin</span><span class="p">,</span> <span class="n">ModelForm</span><span class="p">):</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">UpdatedByForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We also need a couple of test doubles to get the model form working. At
+minimum, a <code class="docutils literal"><span class="pre">ModelForm</span></code> needs an instance, and the form we defined
+requires a <code class="docutils literal"><span class="pre">User</span></code> to set the <code class="docutils literal"><span class="pre">updated_by</span></code> property.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModelStub</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">UserStub</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>And finally we can write our test. The key here is to use the <code class="docutils literal"><span class="pre">Mock</span></code>
+library to patch the call to <code class="docutils literal"><span class="pre">super</span></code>, and then verify that the call
+was made.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">patchclass</span>
+
+<span class="n">TestUpdatedByMixin</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;django.forms.ModelForm.save&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_calls_super_class_save_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">superclass_save</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">UpdatedByForm</span><span class="p">()</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">UserStub</span><span class="p">()</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">ModelStub</span><span class="p">()</span>
+
+        <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">superclass_save</span><span class="o">.</span><span class="n">called</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This test will fail, because our mixin is not calling its super class&#8217;s
+<code class="docutils literal"><span class="pre">save</span></code> method.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ python manage.py testCreating <span class="nb">test</span> database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+<span class="nv">F</span>
+<span class="o">======================================================================</span>
+
+FAIL: test_calls_super_class_save_method <span class="o">(</span>exampleapp.tests.TestUpdatedByMixin<span class="o">)</span>
+----------------------------------------------------------------------
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+
+File <span class="s2">&quot;/home/jscn/work/code/temp/local/lib/python2.7/site-packages/mock.py&quot;</span>, line 1201, in patched
+<span class="k">return</span> func<span class="o">(</span>*args, **keywargs<span class="o">)</span>
+
+File <span class="s2">&quot;/home/jscn/work/code/temp/supertest/exampleapp/tests.py&quot;</span>, line 27, in test_calls_super_class_save_method
+self.assertTrue<span class="o">(</span>superclass_save.called<span class="o">)</span>
+AssertionError: False is not <span class="nb">true</span>
+
+----------------------------------------------------------------------
+Ran <span class="m">1</span> <span class="nb">test</span> in 0.002s
+
+FAILED <span class="o">(</span><span class="nv">failures</span><span class="o">=</span>1<span class="o">)</span>
+Destroying <span class="nb">test</span> database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+</pre></div>
+</div>
+<p>Now we can write the code to make it pass:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UpdatedByMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">updated_by</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">UpdatedByMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ python manage.py testCreating <span class="nb">test</span> database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+.
+
+----------------------------------------------------------------------
+Ran <span class="m">1</span> <span class="nb">test</span> in 0.001s
+
+OK
+Destroying <span class="nb">test</span> database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+</pre></div>
+</div>
+<p>Mixins are a powerful way to share behaviour across objects. It&#8217;s
+vital to ensure that your mixins correctly extend the behaviour of the
+classes into which they&#8217;re mixed. With the <a class="reference external" href="http://www.voidspace.org.uk/python/mock/">Mock</a> library you can ensure
+that your mixin classes make the appropriate calls.</p>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../../03/on-private-and-public-interfaces-in-python/">
+    <i class="fa fa-arrow-circle-left"></i>
+    On private and public interfaces in Python
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../storing-durations-on-django-models/">
+    Storing durations on Django models
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,41 @@
+.. post:: 2013-09-09
+   :tags: emacs
+   :author: Josh Crompton
+
+On emacs-starter-kit
+####################
+
+I've been using Emacs exclusively for something like five years now, but
+I still feel like a newbie a lot of the time. Emacs is a big, complex
+beast. I have a relatively small set of techniques that I rely on for
+moving around and editing text, and there aren't a lot of major modes
+that I use, outside of the built in python mode.
+
+One of the things that I've been using for a long time is the excellent
+`emacs-starter-kit <https://github.com/technomancy/emacs-starter-kit>`__.
+Without this package, I probably would not have stuck with Emacs for
+very long. So I'm very grateful to
+`technomancy <http://technomancy.us/>`__ for creating it.
+
+However, in an effort to get better at Emacs, I've decided to move to
+using my own custom configuration. This is largely so that I can be more
+aware of which modes I'm using and hence get better at using them. I
+feel like I'm missing out on a lot of functionality because I'm not
+really aware of what's available.
+
+I'm also hoping that it will help me pick up elisp, so I can write some
+custom modes for myself. I've been interested in picking up a lisp for a
+while, but there are a lot of options and no particular reason for me to
+pick one over another. But if I pick up elsip, then I'll be more
+comfortable extending Emacs, and it should make picking up other lisps
+in the future easier.
+
+I'd still strongly recommend using
+`emacs-starter-kit <https://github.com/technomancy/emacs-starter-kit>`__
+if you're new to Emacs, it's fantastic for getting a feel for how
+powerful the editor can be. It's ironic that the point in your Emacs
+career when you are the least capable of producing a complex and
+opinionated configuration is the same point at which you would most
+benefit from one.
+`emacs-starter-kit <https://github.com/technomancy/emacs-starter-kit>`__
+is a great solution to that dilemna.

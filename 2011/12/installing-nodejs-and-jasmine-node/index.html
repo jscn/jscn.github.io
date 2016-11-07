@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing node.js and jasmine-node</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="None" href="../../../" />
+  
+ 
+<link rel="stylesheet" href="../../../_static/tufte.css" type="text/css" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../../../blog/atom.xml" title="Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+    <div class="sphinxsidebarwrapper">
+      <h3><a href="../../../">Home</a></h3><ul><li></li></ul>
+  <h3><a href="../../../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/2016/">2016 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2015/">2015 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2014/">2014 (6)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2013/">2013 (1)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2012/">2012 (15)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2011/">2011 (2)</a></li>
+    
+  
+  </ul>
+
+  <h3><a href="../../../blog/category/">Categories</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/category/book-reviews/">Book Reviews (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+  </div>
+
+
+<div class="document">
+  <div class="section" id="installing-node-js-and-jasmine-node">
+<h1>Installing node.js and jasmine-node<a class="headerlink" href="#installing-node-js-and-jasmine-node" title="Permalink to this headline">¶</a></h1>
+<p>There seem to be a plethora of ways to install node.js, and none of
+them worked initially for me. Even when I got node itself working, npm
+(node&#8217;s creatively named&nbsp;package manager) would refuse to install. Or
+if I got it installed, it would then refuse to install
+jasmine-node. So here&#8217;s what I did to finally get it all working:</p>
+<div class="section" id="install-node-js">
+<h2>Install node.js<a class="headerlink" href="#install-node-js" title="Permalink to this headline">¶</a></h2>
+<p>At the time I wrote this post, the development version of node was
+failing to build. So, rather than installing the latest version from
+git, I had to install from the last stable version:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>wget http://nodejs.org/dist/v0.6.5/node-v0.6.5.tar.gztar <span class="se">\</span>
+    -xvf node-v0.6.5.tar.gz./configure <span class="se">\</span>
+    --prefix<span class="o">=</span>~/localmake install
+</pre></div>
+</div>
+<p>This will install node into ~/local, and conveniently also installs
+npm. Finally, add this line to your .bashrc so bash can find node:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/local/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-jasmine-node">
+<h2>Install jasmine-node<a class="headerlink" href="#install-jasmine-node" title="Permalink to this headline">¶</a></h2>
+<p>By default, npm will simply install packages to your pwd. I prefer
+this option over doing a system wide install, since I can have a
+per-project environment (somewhat like python&#8217;s virtualenv). You can
+install jasmine-node into the project directory like so:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>makdir test_project <span class="o">&amp;&amp;</span> <span class="nb">cd</span> test_projectnpm install jasmine-node
+</pre></div>
+</div>
+</div>
+<div class="section" id="write-a-simple-test">
+<h2>Write a simple test<a class="headerlink" href="#write-a-simple-test" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;re now ready to start writing test specs. Jasmine expects your
+tests to reside in <code class="docutils literal"><span class="pre">test_project/spec/</span></code> and be named
+<code class="docutils literal"><span class="pre">whatever.spec.js</span></code>.  So save the following as
+<code class="docutils literal"><span class="pre">test_project/spec/test_hello.spec.js</span></code></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../hello&#39;</span><span class="p">);</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;hello_world&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return hello world&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">returned_string</span> <span class="o">=</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">hello_world</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">returned_string</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>You&#8217;ll need something to test, too, so save the following in
+<code class="docutils literal"><span class="pre">test_project</span></code> parent directory:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hello_world</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="s2">&quot;Hello, world!&quot;</span><span class="p">;}</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">hello_world</span> <span class="o">=</span> <span class="nx">hello_world</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Finally, you can run
+<code class="docutils literal"><span class="pre">jasmine-node</span></code> and see the test pass. From inside <code class="docutils literal"><span class="pre">test_project</span></code>,
+run the following command:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>./node_modules/jasmine-node/bin/jasmine-node spec/
+</pre></div>
+</div>
+<p>you should see the following output:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>Started
+.
+
+Finished in 0.002 seconds
+<span class="m">1</span> test, <span class="m">1</span> assertion, <span class="m">0</span> failures
+</pre></div>
+</div>
+<p>Bam! Up and running with node.js and jasmine-node.</p>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../why-philosophers-make-good-programmers/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Why philosophers make good programmers
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../../../2012/02/big-news-but-not-nerdy/">
+    Big news. But not nerdy.
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,63 @@
+.. post:: 2012-07-29
+   :tags: TDD, unit testing
+   :author: Josh Crompton
+
+Peace of mind
+#############
+
+One of my favourite things about unit tests is the peace of mind they
+afford me. Of course, tests don't guarantee bug-free code, but they
+definitely contribute to peace of mind. That's especially true when
+you're altering existing code, whether making functional changes or
+refactoring.
+
+    Peace of mind isn't at all superficial to technical work. It's the
+    whole thing. That which produces it is good work and that which
+    destroys it is bad work. The specs, the measuring instruments, the
+    quality control, the final checkout, these are all means toward the
+    end of satisfying the peace of mind of those responsible for the
+    work. What really counts in the end is their peace of mind, nothing
+    else.
+
+    *Robert Pirsig, Zen and the Art of Motorcycle Maintenance.*
+
+Software is incredibly complex, and it's impossible to hold in your head
+the entire space of possible behaviour for even a relatively simple
+program. You certainly can't predict every possible consequence that
+will result from a change you make. But tests help you with that burden
+by providing evidence that some behaviour (hopefully the most important
+parts) have not changed.
+
+Instead of thinking of writing software as a constructive process,
+sometimes I think it's like corralling an animal. You cut off part of
+the possible complexity by writing tests, each one reducing the
+unpredictability of the software by some small factor. Eventually you
+wind up with a well understood and constrained process, like a
+ring-fenced animal.
+
+But with software you don't start with a complex process and then
+constrain it (unless you're working with untested legacy code.) Instead,
+you're simultaneously constraining and creating the process. And beyond
+that, as you change the machine, the machine changes you. There's a
+feedback loop between your mental model of the program and the program
+itself.
+
+    ...the nature of the the material at hand determines [the
+    mechanic's] thoughts and motions, which simultaneously change the
+    nature of the material at hand. The material and his thoughts are
+    changing together in a progression of changes until his mind's at
+    rest at the same time the material's right.
+
+    *Robert Pirsig, Zen and the Art of Motorcycle Maintenance.*
+
+That's why tests are so important. You can't have peace of mind without
+some guarantee of the behaviour of this otherwise wildly unpredictable
+stuff we know as software. And your peace of mind is  in the software as
+much as the software itself is in your mind. If you're anxious or
+scattered when you write software, that is manifested as buggy,
+unpredictable and ugly code. So:
+
+    You should remember that it's peace of mind you're after and not
+    just a fixed machine.
+
+    *Robert Pirsig, Zen and the Art of Motorcycle Maintenance.*

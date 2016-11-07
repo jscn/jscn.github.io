@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>On private and public interfaces in Python</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="None" href="../../../" />
+  
+ 
+<link rel="stylesheet" href="../../../_static/tufte.css" type="text/css" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../../../blog/atom.xml" title="Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+    <div class="sphinxsidebarwrapper">
+      <h3><a href="../../../">Home</a></h3><ul><li></li></ul>
+  <h3><a href="../../../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/2016/">2016 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2015/">2015 (2)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2014/">2014 (6)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2013/">2013 (1)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2012/">2012 (15)</a></li>
+    
+  
+    
+    <li><a href="../../../blog/2011/">2011 (2)</a></li>
+    
+  
+  </ul>
+
+  <h3><a href="../../../blog/category/">Categories</a></h3>
+  <ul>
+  
+    
+    <li><a href="../../../blog/category/book-reviews/">Book Reviews (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+  </div>
+
+
+<div class="document">
+  <div class="section" id="on-private-and-public-interfaces-in-python">
+<h1>On private and public interfaces in Python<a class="headerlink" href="#on-private-and-public-interfaces-in-python" title="Permalink to this headline">¶</a></h1>
+<p>In Sandi Metz&#8217;s excellent <a class="reference external" href="http://www.amazon.com/Practical-Object-Oriented-Design-Ruby-Addison-Wesley/dp/0321721330/">Practical Object-Oriented Design in
+Ruby</a>
+there&#8217;s a section on creating explicit interfaces. Here, I attempt to
+translate Ruby&#8217;s <code class="docutils literal"><span class="pre">public</span></code>, <code class="docutils literal"><span class="pre">private</span></code> and <code class="docutils literal"><span class="pre">protected</span></code> keywords to
+Python-land. According to Metz, these keywords <em>&#8220;indicate which methods
+are stable and which are unstable&#8221;</em> and also <em>&#8220;how visible a method
+is&#8221;</em>.</p>
+<p>Python doesn&#8217;t have any direct equivalent to these keywords. All
+attributes and methods on an object are accessible by any other object.
+(This can be both a blessing and a curse.) However, we do have a
+convention that allows us to follow the spirit of Ruby&#8217;s <code class="docutils literal"><span class="pre">private</span></code> and
+<code class="docutils literal"><span class="pre">protected</span></code> keywords.</p>
+<p>According <a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/">the venerable PEP
+8</a>, we should <em>&#8220;[u]se
+one leading underscore only for non-public methods and instance
+variables.&#8221;</em> Note that Python&#8217;s built in <code class="docutils literal"><span class="pre">help</span></code> function only renders
+&#8220;public&#8221; methods and attributes. Similarly, tab completion in the REPL
+will by default only list &#8220;public&#8221; things, although you can get a
+complete listing by typing an underscore before hitting <em>TAB</em>.</p>
+<p>We also have the ability to explicitly set the visible contents of a
+module using the <code class="docutils literal"><span class="pre">__all__</span></code> attribute. Defined in a module&#8217;s
+<code class="docutils literal"><span class="pre">__init__.py</span></code>, this attribute restricts the things that may imported
+from that module.</p>
+<p>So in Python, any method or attribute of a class whose name starts with
+an underscore, and any class, function or attribute of a module which is
+not present in that module&#8217;s <code class="docutils literal"><span class="pre">__all__</span></code> listing should be considered
+part of the private interface.</p>
+<p>Because we can&#8217;t distinguish between <code class="docutils literal"><span class="pre">private</span></code> and <code class="docutils literal"><span class="pre">protected</span></code>, Metz
+claims that we&#8217;ll be conflating two very different things: a method&#8217;s
+<em>stability</em>, and it&#8217;s <em>visibility</em>. However, Metz also admits that most
+Rails programmers use a similar leading-underscore convention for
+private/protected methods and attributes, rather than enforcing it at
+the language level. Maybe it doesn&#8217;t matter so much in practice.</p>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../../01/how-to-make-django-debug-toolbar-display-when-using-vagrant/">
+    <i class="fa fa-arrow-circle-left"></i>
+    How to make Django Debug Toolbar display when using Vagrant
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../../08/on-mixins-and-the-testing-thereof/">
+    On mixins and the testing thereof
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+</div>
+
+  </body>
+</html>

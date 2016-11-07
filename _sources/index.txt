@@ -1,0 +1,20 @@
+
+
+Josh Crompton
+-------------
+
+I'm a software developer based in Melbourne, Australia. I like object
+oriented design, free software and the open web. If you'd like to
+chat, send me an `email <mailto:josh.crompton@gmail.com>`_.
+
+Recent posts
+++++++++++++
+
+.. postlist:: 5
+   :excerpts:
+
+
+.. toctree::
+   :hidden:
+
+   resume.rst

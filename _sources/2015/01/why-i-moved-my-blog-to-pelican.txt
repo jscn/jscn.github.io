@@ -1,0 +1,116 @@
+.. post:: 2015-01-27
+   :author: Josh Crompton
+
+Why I moved my blog to Pelican
+##############################
+
+When I first decided to start blogging, I wanted to eliminate any
+excuse I had for not posting. I didn't want to waste time shaving
+yaks, setting up hosting and generally spinning my wheels. So I went
+with the easiest option available: blogger.com.
+
+But as time passed, I found that I wasn't posting as much as I'd
+like. I found myself not writing because I knew it would be a fight to
+get the post formatted and published. I hated that my code snippets
+were hosted on github. I was writing HTML by hand to work around the
+terrible WYSIWYG editor. Posts were really frustrating to edit.
+
+Instead, I want something that is closer to my regular writing
+workflow (`org-mode <http://orgmode.org/>`_ for most of my writing,
+`Sphinx <http://sphinx-doc.org/>`_ for code documentation.) I also
+find myself increasingly wanting to `own my content in a meaningful
+way <http://indiewebcamp.com/why>`_. I am old enough to remember the
+early(ish) days of the web, before it was turned into a machine for
+selling and surveilling, and although it's probably too late to fix
+that, I can at least not exacerbate the problem. The easiest place to
+start is with this blog.
+
+Finally, I'm trying to integrate blogging more into my learning
+style. I need it to be as easy as possible for me to write and publish
+as I go. All this to say that late last year I replaced my old blog
+with this one, which is powered by `Pelican
+<http://blog.getpelican.com/>`_ and hosted on AWS.
+
+Why Pelican?
+------------
+
+I looked at publishing directly from org-mode and skipping
+ReStructured Text entirely, but I couldn't find any good options and
+I'm more familiar with Python than Elisp. I was still undecided on
+platform (there are a number of Python-based static site generators)
+until I stumbled on http://jeremiahrogers.com/ and found it was based
+on Pelican. Although I only planned to publish basic text posts
+initially, seeing what Jeremiah has managed to do gave me all sorts of
+ideas and demonstrated how flexible Pelican could be.
+
+Publishing workflow
+-------------------
+
+The old way:
+
+1) Draft post in org-mode.
+2) Write up code snippets on github.
+3) Publish org-mode file to html.
+4) Copy body of html to blogger.com editor.
+5) Tweak all the things.
+6) Add embed code for github snippets.
+7) Hit publish.
+8) Realise I made a mistake.
+9) Edit the raw HTML in blogger.
+10) Decide to re-write portions while I was at it.
+11) Save changes.
+12) Realise I broke the HTML strcuture.
+13) Repeat 7 - 13 *ad nauseum*
+
+The new way:
+
+1) Get an idea for a post. Open up ``content/drafts.org`` and add it
+   as a headline under the ``ideas`` sub-tree. (I skip this step if I
+   want to start writing immediately.)
+2) When ready to start writing, move the headline to the
+   ``research/draft`` sub-tree and start writing. Write code snippets
+   inline (because org-mode).
+3) Once a post is ready to be published, create a new file in the
+   appropriate directory with the name of the post as the filename and
+   the org-mode subtree of the draft as the contents.
+4) Manually translate the post from org-mode to RST, adding the
+   required metadata.
+5) Run ``make s3_upload``.
+
+If I need to edit a post, I just open it in Emacs, edit the text and
+re-run ``make s3_upload``.
+
+Future improvements
+-------------------
+
+It's far easier now for me to write and publish, but there are some
+areas I could improve. At some point I may write an entirely custom
+solution which will let me publish direct from org-mode and syndicate
+to various other platforms, but in the short- to medium-term, there
+are some other clear wins.
+
+Eliminate manual org-mode -> RST translation
+++++++++++++++++++++++++++++++++++++++++++++
+
+I'd like to eliminate the org -> RST step. I would skip the org-mode
+step altogether, but I love me some org-mode. I'd skip the RST step
+but Pelican requires it. I think pandoc may be able to do translate
+between these formats automatically, although it still offends my
+sensibilities, so I may have to either abandon org-mode or move from
+Pelican to an org-mode based static site generator.
+
+Generate metadata automatically
++++++++++++++++++++++++++++++++
+
+It would be great to eliminate copy/pasting the structure of the
+metadata headers for posts. I'll look into doing that with either a
+capture template for org-mode, or a snippet for yasnippet. Either way
+I'll be getting better with Emacs which is a nice side effect.
+
+Formalise workflow with task states
++++++++++++++++++++++++++++++++++++
+
+The task tracking functionality in org-mode is awesome, and it's
+possible to define your own task states and transitions. I'd like to
+try using task states in place of moving drafts between different
+sub-trees in order to track what stage they're in.

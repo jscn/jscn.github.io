@@ -1,0 +1,44 @@
+.. post:: 2011-12-12
+   :author: Josh Crompton
+
+Why philosophers make good programmers
+######################################
+
+I was speaking to a guy recently and it came up that I was a software
+developer. He asked if I had majored in Computer Science. I told him no,
+my degree was in Philosophy. The guy was blown off his feet. What on
+earth could philosophy have to do with programming? It's never really
+seemed strange to me. So, here are some reasons why philosophers make
+good programmers.
+
+One field of philosophy is Ontology, very loosely, the study of what
+there is. What things exist, what makes up reality. This same kind of
+thinking applies to object oriented design: what kinds of things should
+a program be made up of? It might sound esoteric, but being familiar
+with that kind of questioning makes object orientation feel pretty
+natural.
+
+Another obvious one is formal logic. Boolean logic is foundational to
+computers, and studying other branches of logic prepares the mind for
+the kind of things a programmer does much better than mathematics. The
+kind of thinking you need to work out a proof in modal logic, or perform
+some feat with peano arithmetic feels very similar to debugging, or
+working through some sticky technical problem.
+
+Philosophy of Science and Epistemology are both important to testing.
+I read Feyerabend's *Against Method* as one long argument for
+context-driven testing. Epistemology, the study of how we can have
+knowledge, is also relevant to the ambiguities I've faced as a software
+tester: how can I know a bug is gone? How can I know I've tested enough?
+Philosophy of Mind has only recently spawned Cognitive Science. Both are
+intimately linked with artificial intelligence.
+
+Finally, and most generally, the whole orientation toward questioning
+what's best, what aims we should pursue and why, ties in closely to why
+I enjoy programming. There are endless ways I could write any particular
+program. In choosing a particular way, I'm discarding all the others. I
+had better have damned good reasons for doing so. (Many of the debates I
+see about the merits of various languages look a lot to me like
+philosophical arguments for the same reason.) Philosophy orients you
+toward doing things for reasons. And ultimately, that's the most
+important thing of all.
